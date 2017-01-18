@@ -13,4 +13,14 @@
 
 Route::get('/', 'PagesController@home');
 
-//Route::post('/', "");
+Route::get('login', 'PagesController@login');
+Route::post('login', 'LoginController@login');
+
+// Student Area
+Route::get('student/overview', 'StudentController@overview');
+
+// Teacher Area
+Route::get('teacher/overview', 'TeacherController@overview');
+
+// Admin Area
+Route::get('admin/overview', 'AdminController@overview');
