@@ -10,24 +10,28 @@ class LoginController extends Controller
 {
     public function login(Request $request){
 
-        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check()){
+        $student = Auth::guard('student');
+        $teacher = Auth::guard('teacher');
+        $admin = Auth::guard('admin');
+
+        if($student->check() || $teacher->check() || $admin->check()) {
             return Redirect::to('/admin/overview')->send();
         }
 
         $credentials = ['email'=>$request->input('email'), 'password'=>$request->input('password')];
 
-        if(Auth::guard('student')->attempt($credentials)){
+        if($student->attempt($credentials)) {
             //die("1");
             return Redirect::to('/student/overview')->send();
         }
 
-        if(Auth::guard('teacher')->attempt($credentials)) {
-            die("2");
+        if($teacher->attempt($credentials)) {
+            //die("2");
             return Redirect::to('/teacher/overview')->send();
         }
 
-        if(Auth::guard('admin')->attempt($credentials)) {
-            die("3");
+        if($admin->attempt($credentials)) {
+            //die("3");
             return Redirect::to('/admin/overview')->send();
         }
 
