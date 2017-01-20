@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use app\Classes\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\User;
 
 class LoginController extends Controller
 {
+
     public function login(Request $request){
 
-        $student = Auth::guard('student');
-        //$teacher = Auth::guard('teacher');
-        //$admin = Auth::guard('admin');
-
-        if($student->check()) {
+        if(Auth::check()) {
             return Redirect::to('/admin/overview')->send();
+        } else {
+            Cookie::set
         }
 
         $credentials = ['email'=>$request->input('email'), 'password'=>$request->input('password')];
