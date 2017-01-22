@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use App\Classes\Auth;
 
 class PagesController extends Controller
 {
-    public function home() {
+    public function home($args = null) {
         return view("pages.home");
     }
 
     public function login() {
 
-        if(Auth::guard('student')->check() || Auth::guard('teacher')->check() || Auth::guard('admin')->check()){
-            return Redirect::to('teacher/overview')->send();
+        $check = Auth::check();
+
+        if($check['success']) {
+            return redirect('/admin/overview');
+        } else {
+            if(isset($check['cookie'])){
+                return redirect()->action('PagesController@home', ['error'=>$check['error']])->withCookie($check['cookie']);
+            }
         }
 
         return view("pages.login");
