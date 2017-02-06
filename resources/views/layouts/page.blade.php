@@ -46,17 +46,20 @@
                     <li><a href="/teacher">Teacher</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login">Login</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Overview</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Classes</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>
+                    @if (\App\Classes\Auth::check(true)['success'])
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ \App\Classes\Auth::get()->name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/overview">Overview</a></li>
+                                <li><a href="/user/{{ \App\Classes\Auth::get()->id }}">Profile</a></li>
+                                <li><a href="/class">Classes</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="/login">Login</a></li>
+                    @endif
                 </ul>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Role;
 use App\User;
 use App\Session;
 use Carbon\Carbon;
@@ -15,29 +16,49 @@ class Auth
     /**
      * @return array
      */
-    public static function check(){
+    public static function check($passive = false){
 
         if(Cookie::has('auth')){
+
+            //Carbon::now()->subHours(3);
 
             $cookie = json_decode(Cookie::get('auth'));
             $ip = Request::ip();
             $agent = new Agent();
             $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());
 
+            $user = User::find($cookie->id);
+
+            if($user === null){
+                if(!$passive){
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Unable to find User!'];
+                }
+                return ['success'=>false];
+            }
+
             $session = Session::where('auth_id', $cookie->token)->first();
 
             if($session === null){
-                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Unable to find session'];
+                if(!$passive){
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Unable to find Session'];
+                }
+                return ['success'=>false];
             }
 
             if($ip !== $session->ip_address || $platform !== $session->platform){
-                $session->delete();
-                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Platform or IP mismatch'];
+                if(!$passive){
+                    $session->delete();
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Platform or IP mismatch'];
+                }
+                return ['success'=>false];
             }
 
             if(Carbon::now() > $session->expiration){
-                $session->delete();
-                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session expired'];
+                if(!$passive) {
+                    $session->delete();
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session Expired'];
+                }
+                return ['success'=>false];
             }
 
             $session->expiration = Carbon::now()->addHours(3);
@@ -93,19 +114,43 @@ class Auth
         return ['success'=>true, 'cookie'=>$cookie];
     }
 
-    public static function user(){
+    /**
+     * @return boolean
+     */
+    public static function is($role){
 
+        if(!Auth::check(true)['success']){
+            return false;
+        }
+
+        $role = Role::where('name', $role)->first();
+
+        if($role === null){
+            return false;
+        }
+
+        $cookie = json_decode(Cookie::get('auth'));
+
+        $user = User::find($cookie->id);
+
+        if($user->role_id == $role->id){
+            return true;
+        }   
+        return false;
     }
 
-    public static function admin(){
+    public static function get(){
 
+        if(!Auth::check(true)['success']){
+            return null;
+        }
+
+        $cookie = json_decode(Cookie::get('auth'));
+        return User::find($cookie->id);
     }
 
-    public static function teacher(){
-
-    }
-
-    public static function student(){
-
+    public static function lastSeen($user_id)
+    {
+        return "Yesterday";
     }
 }

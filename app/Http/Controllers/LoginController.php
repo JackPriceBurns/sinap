@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Auth;
+use Cookie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -28,5 +28,9 @@ class LoginController extends Controller
         }
 
         return view('pages.login', ['error'=>'invalid username or password']);
+    }
+
+    public function logout(){
+        return redirect('/')->withCookie(Cookie::forget('auth'));
     }
 }
