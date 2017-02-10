@@ -100,6 +100,10 @@ class Auth
             json_encode($contents)
         );
 
+        foreach(Session::where('user_id', $user->id)->get() as $session){
+            $session->delete();
+        }
+
         $agent = new Agent();
         $session = new Session();
 
@@ -151,6 +155,9 @@ class Auth
 
     public static function lastSeen($user_id)
     {
-        return "Yesterday";
+        $session = Session::where('user_id', $user_id)->first();
+        $date = new Carbon($session->expiration);
+        $date->subHours(3);
+        return $date->diffForHumans();
     }
 }
