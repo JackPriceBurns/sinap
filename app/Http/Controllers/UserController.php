@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Badge;
 use App\Role;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -18,6 +17,15 @@ class UserController extends Controller
             $new_user = ['user' => $user, 'badges' => $badges, 'role' => $role];
             array_push($badged_users, $new_user);
         }
+
+//        foreach($badged_users as $user){
+//            echo $user['user'] . '<br />';
+//            echo $user['badges'] . '<br />';
+//            echo $user['role'] . '<br />';
+//            echo '<hr />';
+//        }
+//        exit();
+
         return view('pages.user', ['users' => $badged_users]);
     }
 

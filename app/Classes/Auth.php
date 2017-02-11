@@ -156,6 +156,9 @@ class Auth
     public static function lastSeen($user_id)
     {
         $session = Session::where('user_id', $user_id)->first();
+        if($session === null){
+            return 'never';
+        }
         $date = new Carbon($session->expiration);
         $date->subHours(3);
         return $date->diffForHumans();

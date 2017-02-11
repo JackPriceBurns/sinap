@@ -9,7 +9,7 @@ use App\Classes\Hash;
 
 class CreateUser extends Command
 {
-    protected $signature = 'user:add {name} {email} {password} {role=Student}';
+    protected $signature = 'user:add {name} {email} {password} {year=12} {role=Student}';
     protected $description = 'Creates a new user';
 
     public function __construct()
@@ -19,6 +19,12 @@ class CreateUser extends Command
 
     public function handle()
     {
+        $years = ["12", "13"];
+
+        if(!in_array($this->argument('year'), $years)){
+            throw new \Exception("The year '" . $this->argument('year') . "' is not a valid year!");
+        }
+
         $user = new User();
         $user->name = $this->argument('name');
         $user->email = $this->argument('email');
@@ -35,6 +41,7 @@ class CreateUser extends Command
         }
 
         $user->role_id = json_decode($role)->id;
+        $user->year = $this->argument('year');
 
         $user->save();
     }

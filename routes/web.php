@@ -21,6 +21,8 @@ Route::get('logout', 'LoginController@logout');
 Route::get('user', 'UserController@index');
 Route::get('user/{id}', 'UserController@user');
 
+Route::get('overview', 'OverviewController@overview')->middleware('auth');
+
 // Student Area
 Route::get('student/overview', 'StudentController@overview')->middleware('student');
 
