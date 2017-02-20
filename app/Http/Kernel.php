@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\CheckAuth::class,
     ];
 
     /**
@@ -49,7 +50,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\CheckAdmin::class,
         'teacher' => \App\Http\Middleware\CheckTeacher::class,
         'student' => \App\Http\Middleware\CheckStudent::class,
-        'auth' => \App\Http\Middleware\CheckAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

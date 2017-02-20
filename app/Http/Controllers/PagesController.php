@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Auth;
+use Cookie;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -10,16 +12,10 @@ class PagesController extends Controller
         return view("pages.home");
     }
 
-    public function login() {
+    public function login(Request $request) {
 
-        $check = Auth::check();
-
-        if($check['success']) {
-            return redirect('/admin/overview');
-        } else {
-            if(isset($check['cookie'])){
-                return redirect()->action('PagesController@home', ['error'=>$check['error']])->withCookie($check['cookie']);
-            }
+        if($request->get('authenticated')) {
+            return redirect('/overview');
         }
 
         return view("pages.login");

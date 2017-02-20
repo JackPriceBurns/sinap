@@ -11,23 +11,34 @@
 |
 */
 
+# Pages
+
 Route::get('/', 'PagesController@home');
-
 Route::get('login', 'PagesController@login');
-Route::post('login', 'LoginController@login');
 
+# Login Controller
+
+Route::post('login', 'LoginController@login');
 Route::get('logout', 'LoginController@logout');
+
+# User Controller
 
 Route::get('user', 'UserController@index');
 Route::get('user/{id}', 'UserController@user');
 
-Route::get('overview', 'OverviewController@overview')->middleware('auth');
+# Overview Controller
 
-// Student Area
-Route::get('student/overview', 'StudentController@overview')->middleware('student');
+Route::get('overview', 'OverviewController@overview');
 
-// Teacher Area
-Route::get('teacher/overview', 'TeacherController@overview')->middleware('teacher');
+# Manage Controller
 
-// Admin Area
-Route::get('admin/overview', 'AdminController@overview')->middleware('admin');
+Route::get('manage/badges', 'ManageController@badges');
+Route::get('manage/students', 'ManageController@students');
+Route::get('manage/teachers', 'ManageController@teachers');
+Route::get('manage/classes', 'ManageController@classes');
+Route::get('manage/sessions', 'ManageController@sessions');
+Route::get('manage/widgets', 'ManageController@widgets');
+
+# Class Controller
+
+Route::get('class', 'ClassController@index');

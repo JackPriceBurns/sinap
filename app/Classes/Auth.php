@@ -2,11 +2,11 @@
 
 namespace App\Classes;
 
-use App\Role;
 use App\User;
 use App\Session;
 use Carbon\Carbon;
 use Cookie;
+use Crypt;
 use Request;
 use Jenssegers\Agent\Agent;
 
@@ -22,7 +22,7 @@ class Auth
 
             //Carbon::now()->subHours(3);
 
-            $cookie = json_decode(Cookie::get('auth'));
+            $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
             $ip = Request::ip();
             $agent = new Agent();
             $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());
@@ -31,7 +31,7 @@ class Auth
 
             if($user === null){
                 if(!$passive){
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Unable to find User!'];
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find User!'];
                 }
                 return ['success'=>false];
             }
@@ -40,7 +40,7 @@ class Auth
 
             if($session === null){
                 if(!$passive){
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Unable to find Session'];
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find Session'];
                 }
                 return ['success'=>false];
             }
@@ -48,7 +48,7 @@ class Auth
             if($ip !== $session->ip_address || $platform !== $session->platform){
                 if(!$passive){
                     $session->delete();
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Platform or IP mismatch'];
+                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'platform or IP mismatch'];
                 }
                 return ['success'=>false];
             }
@@ -123,33 +123,24 @@ class Auth
      */
     public static function is($role){
 
-        if(!Auth::check(true)['success']){
+        if(!Request::get('authenticated')){
             return false;
         }
 
-        $role = Role::where('name', $role)->first();
-
-        if($role === null){
-            return false;
-        }
-
-        $cookie = json_decode(Cookie::get('auth'));
-
-        $user = User::find($cookie->id);
-
-        if($user->role_id == $role->id){
+        if($role == Request::get('role_name')){
             return true;
-        }   
+        }
+
         return false;
     }
 
     public static function get(){
 
-        if(!Auth::check(true)['success']){
+        if(!Request::get('authenticated')){
             return null;
         }
 
-        $cookie = json_decode(Cookie::get('auth'));
+        $cookie = Request::get('auth_cookie');
         return User::find($cookie->id);
     }
 

@@ -9,17 +9,7 @@ class OverviewController extends Controller
 {
     public function overview(){
 
-        if(Auth::is("Student")){
-            return view('overview.student');
-        }
-
-        if(Auth::is("Teacher")){
-            return view('overview.teacher');
-        }
-
-        if(Auth::is("Admin")){
-            return view('overview.admin');
-        }
+        return view('pages.overview');
 
     }
 }

@@ -95,18 +95,6 @@ body {
     margin:0;
 }
 
-.index {
-    background-image: url("/img/index.png") !important;
-}
-
-.about {
-    background-image: url("/img/about.jpg") !important;
-}
-
-.services {
-    background-image: url("/img/services.jpg") !important;
-}
-
 .header {
     display: block;
     width: 100%;
@@ -223,28 +211,7 @@ body {
 
 .footer {
     color: #ccc;
-}
-
-.footer > .container > .col-sm-6 > .col-sm-6 > p > a {
-    text-decoration:none;
-    color: #ccc;
-}
-
-.footer > .container > .col-sm-6 > .col-sm-6 > p > a:hover {
-    text-decoration:none;
-    color: #fff;
-}
-
-
-.footer-tiles > .col-md-4 {
-    border-left: 1px solid #ccc;
-    height:240px;
-}
-
-.footer-tiles > .col-md-4 > h2 {
-
-}
-
-.footer-tiles > .col-md-4 > p {
-
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

@@ -9,8 +9,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                @if (isset($error))
-                    <div class="alert alert-danger" role="alert"><strong>Sorry</strong> {{ $error }}</div>
+                @if ( app('request')->input('error') )
+                    <div class="alert alert-danger" role="alert"><strong>Sorry</strong> {{ app('request')->input('error') }}</div>
                 @endif
                 <div class="panel panel-login">
                     <div class="panel-heading">

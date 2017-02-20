@@ -11,23 +11,17 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
-        $check = Auth::check();
-
-        if($check['success']) {
-            return redirect('/admin/overview');
-        } else {
-            if(isset($check['cookie'])){
-                return redirect()->action('PagesController@index', ['error'=>$check['error']])->withCookie($check['cookie']);
-            }
+        if($request->get('authenticated')) {
+            return redirect('/overview');
         }
 
         $auth = Auth::attempt(['email'=>$request->input('email'), 'password'=>$request->input('password')]);
 
         if($auth['success']){
-            return redirect('/admin/overview')->withCookie($auth['cookie']);
+            return redirect('/overview')->withCookie($auth['cookie']);
         }
 
-        return view('pages.login', ['error'=>'invalid username or password']);
+        return redirect('login?error=invalid username or password');
     }
 
     public function logout(){

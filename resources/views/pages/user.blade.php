@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="container">
-        <br><br><br>
+        <br>
         <h1>Users</h1>
 
         <hr />
@@ -26,6 +26,7 @@
                         @endforeach
                     </div>
                 </div>
+                <br />
             </div>
         @endforeach
     </div>
