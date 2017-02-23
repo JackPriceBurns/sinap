@@ -11,7 +11,7 @@ class CheckAdmin
     public function handle($request, Closure $next)
     {
         if(!Auth::is('Admin')){
-            return redirect('teacher/overview');
+            return redirect('/overview');
         }
         return $next($request);
     }

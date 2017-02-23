@@ -10,8 +10,9 @@ class CheckTeacher
 
     public function handle($request, Closure $next)
     {
-        if(!Auth::is('Teacher')){
-            return redirect('student/overview');
+
+        if(!Auth::is('Teacher') && !Auth::is('Admin')){
+            return redirect('/overview');
         }
         return $next($request);
     }

@@ -32,11 +32,11 @@ Route::get('overview', 'OverviewController@overview');
 
 # Manage Controller
 
-Route::get('manage/badges', 'ManageController@badges');
-Route::get('manage/students', 'ManageController@students');
-Route::get('manage/teachers', 'ManageController@teachers');
-Route::get('manage/classes', 'ManageController@classes');
-Route::get('manage/sessions', 'ManageController@sessions');
+Route::get('manage/badges', 'ManageController@badges')->middleware("teacher");
+Route::get('manage/students', 'ManageController@students')->middleware("teacher");
+Route::get('manage/teachers', 'ManageController@teachers')->middleware("admin");
+Route::get('manage/classes', 'ManageController@classes')->middleware("teacher");
+Route::get('manage/sessions', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/widgets', 'ManageController@widgets');
 
 # Class Controller

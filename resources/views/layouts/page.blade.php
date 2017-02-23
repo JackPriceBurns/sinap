@@ -47,7 +47,7 @@
                     <li><a href="/overview">Overview</a></li>
                     @yield('links')
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">,
                     @if ( Request::get('authenticated') )
                         <li class="dropdown dropdown-notifications hidden-xs">
                             <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
