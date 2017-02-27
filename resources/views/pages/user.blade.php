@@ -1,4 +1,4 @@
-@extends('layouts.page')
+@extends('pages.overview')
 
 @section('title', 'SINAP - Users')
 
