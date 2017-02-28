@@ -16,7 +16,7 @@
                         <img class="media-object dp img-circle" src="http://placehold.it/500x500" style="width: 100px;height:100px;">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">{{ $user['user']->name }} <small> Yr {{ $user['user']->year }}</small></h4>
+                        <h4 class="media-heading">{{ $user['user']->name }} <small> {{ ($user['user']->year == 'n/a') ? '' : 'Yr '.$user['user']->year }}</small></h4>
                         <h5>Last Seen: {{ \App\Classes\Auth::lastSeen($user['user']->id) }}</h5>
                         <hr style="margin:8px auto">
 

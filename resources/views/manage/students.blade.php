@@ -54,11 +54,11 @@
                             </tr>
                             <tr>
                                 <td>Year 12</td>
-                                <td>n/a</td>
+                                <td>{{ \App\User::where('year', '12')->count() }}</td>
                             </tr>
                             <tr>
                                 <td>Year 13</td>
-                                <td>n/a</td>
+                                <td>{{ \App\User::where('year', '13')->count() }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -80,26 +80,26 @@
                     <h4 class="modal-title">Add Student</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/manage/students/addstudent">
-
+                    <form id="addStudent" method="POST" action="/manage/students/addstudent">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Full Name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
                         </div>
                         <div class="form-group">
                             <label for="name">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="example00@jacsin.org.uk">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="example00@jacsin.org.uk">
                         </div>
                         <div class="form-group">
                             <label for="name">Year</label>
-                            <input type="text" class="form-control" id="year" placeholder="12" value="12">
+                            <input type="text" class="form-control" id="year" name="year" placeholder="12" value="12">
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Add</button>
+                    <input id="addStudentButton" type="submit" value="Add" class="btn btn-primary">
                 </div>
             </div>
         </div>
@@ -133,6 +133,12 @@
     <script>
 
         $(function() { $('#error').modal(); });
+
+        $(document).ready(function() {
+            $("#addStudentButton").click(function() {
+                $("#addStudent").submit();
+            });
+        });
 
     </script>
 
