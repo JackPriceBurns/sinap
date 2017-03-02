@@ -37,8 +37,11 @@ Route::get('manage/students', 'ManageController@students')->middleware("teacher"
 Route::get('manage/students/{args}', 'ManageController@students')->middleware("teacher");
 Route::post('manage/students/{args}', 'ManageController@students')->middleware("teacher");
 Route::get('manage/teachers', 'ManageController@teachers')->middleware("admin");
+Route::get('manage/teachers/{args}', 'ManageController@teachers')->middleware("admin");
+Route::post('manage/teachers/{args}', 'ManageController@teachers')->middleware("admin");
 Route::get('manage/classes', 'ManageController@classes')->middleware("teacher");
 Route::get('manage/sessions', 'ManageController@sessions')->middleware("admin");
+Route::get('manage/sessions/{args}', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/widgets', 'ManageController@widgets');
 
 # Class Controller
