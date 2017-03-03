@@ -9,7 +9,13 @@
         <h1>Users</h1>
 
         <hr />
+        @php
+            $x = 1;
+        @endphp
         @foreach ($users as $user)
+            @if(($x/3) == (int) ($x/3))
+                <div class="clearfix">
+            @endif
             <div class="col-md-4">
                 <div class="media">
                     <a class="pull-left" href="/user/{{ $user['user']->id }}">
@@ -28,7 +34,14 @@
                 </div>
                 <br />
             </div>
+            @if(($x/3) == (int) ($x/3))
+                </div>
+            @endif
+            @php
+                $x++;
+            @endphp
         @endforeach
+        </div>
     </div>
 
 @endsection

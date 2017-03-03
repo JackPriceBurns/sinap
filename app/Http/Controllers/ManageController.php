@@ -7,11 +7,65 @@ use App\Session;
 use App\Setting;
 use App\User;
 use App\Role;
+use App\Badge;
 use Illuminate\Http\Request;
 
 class ManageController extends Controller
 {
-    public function sessions(Request $request, $args = null){
+    public function badges(Request $request, $args = null){
+
+        if($args !== null){
+            $args = explode('.', $args);
+            if($args[0] == 'delete'){
+                if(isset($args[1])){
+                    $badge_id = $args[1];
+                    if(is_numeric($badge_id)){
+                        $badge = Badge::find($badge_id);
+                        if($badge !== null){
+                            $badge->delete();
+                        } else {
+                            return redirect('manage/badges?error=badge does not exist');
+                        }
+                    } else {
+                        return redirect('manage/badges?error=badge id not integer');
+                    }
+
+                } else {
+                    return redirect('manage/badges?error=no badge id specified');
+                }
+
+            } elseif($args[0] == 'addbadge') {
+                if($request->isMethod('post')){
+
+                    $colours = ['warning', 'primary', 'info', 'danger', 'success', 'default'];
+
+                    if(!in_array($request->input('colour'), $colours)){
+                        redirect('manage/badges?error=colour is not valid');
+                    }
+
+                    $badge = new Badge();
+                    $badge->name = $request->input('badge');
+                    $badge->colour = $request->input('colour');
+                    $badge->user_id = (int) $request->input('user_id');
+                    $badge->save();
+
+                } else {
+                    return redirect('manage/badges?error=no post data');
+                }
+            }
+        }
+
+        $packaged = [];
+
+        $users = User::get();
+        foreach($users as $user){
+            array_push($packaged, ['user' => $user, 'badges' => Badge::where('user_id', $user->id)->get()]);
+        }
+
+        return view('manage.badges', ['users' => $packaged]);
+    }
+
+    public function sessions($args = null){
         if($args !== null) {
             $args = explode('.', $args);
             if ($args[0] == 'delete') {

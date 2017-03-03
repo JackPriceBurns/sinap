@@ -33,6 +33,8 @@ Route::get('overview', 'OverviewController@overview');
 # Manage Controller
 
 Route::get('manage/badges', 'ManageController@badges')->middleware("teacher");
+Route::get('manage/badges/{args}', 'ManageController@badges')->middleware("teacher");
+Route::post('manage/badges/{args}', 'ManageController@badges')->middleware("teacher");
 Route::get('manage/students', 'ManageController@students')->middleware("teacher");
 Route::get('manage/students/{args}', 'ManageController@students')->middleware("teacher");
 Route::post('manage/students/{args}', 'ManageController@students')->middleware("teacher");

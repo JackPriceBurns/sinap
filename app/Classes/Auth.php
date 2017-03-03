@@ -23,6 +23,7 @@ class Auth
             //Carbon::now()->subHours(3);
 
             $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
+            Crypt::encrypt($cookie);
             $ip = Request::ip();
             $agent = new Agent();
             $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());

@@ -9,7 +9,7 @@ use App\Role;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::get();
+        $users = User::orderBy('name', 'ASC')->get();
         $badged_users = array();
         foreach($users as $user){
             $badges = Badge::where('user_id', $user->id)->get();
