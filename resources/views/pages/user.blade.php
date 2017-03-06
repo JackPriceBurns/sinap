@@ -12,11 +12,12 @@
         @php
             $x = 1;
         @endphp
+        <table>
         @foreach ($users as $user)
             @if(($x/3) == (int) ($x/3))
-                <div class="clearfix">
+                <tr>
             @endif
-            <div class="col-md-4">
+            <td>
                 <div class="media">
                     <a class="pull-left" href="/user/{{ $user['user']->id }}">
                         <img class="media-object dp img-circle" src="http://placehold.it/500x500" style="width: 100px;height:100px;">
@@ -32,16 +33,15 @@
                         @endforeach
                     </div>
                 </div>
-                <br />
-            </div>
+            </td>
             @if(($x/3) == (int) ($x/3))
-                </div>
+                </tr>
             @endif
             @php
                 $x++;
             @endphp
         @endforeach
-        </div>
+        </table>
     </div>
 
 @endsection

@@ -38,11 +38,9 @@
     <div class="container">
 
         <h2>Classes</h2>
-        <h4>Your classes</h4>
-        @foreach( \App\Classroom::get() as $class )
+        @foreach( \App\Classes\Classroom::get() as $class)
             <h2>{{ $class->name }}</h2>
         @endforeach
-        <h4>Other classes</h4>
     </div>
 
 @endsection

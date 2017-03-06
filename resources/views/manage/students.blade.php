@@ -12,7 +12,11 @@
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addstudents">Add Multiple Students</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#progressYearConfirmation">Progress Year</button>
             <hr />
-            <table class="table table-bordered" style="margin:0;">
+            <div class="col-md-offset-8">
+                <input type="text" class='form-control' id="searchTable" placeholder="Search...">
+                <br />
+            </div>
+            <table id="searchableTable" class="table table-bordered" style="margin:0;">
                 <thead>
                     <tr>
                         <th>Name</th>

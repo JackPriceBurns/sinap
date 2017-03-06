@@ -10,7 +10,11 @@
         <div class="col-md-8">
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addteacher">Add Teacher</button>
             <hr />
-            <table class="table table-bordered" style="margin:0;">
+            <div class="col-md-offset-8">
+                <input type="text" class='form-control' id="searchTable" placeholder="Search...">
+                <br />
+            </div>
+            <table id="searchableTable" class="table table-bordered" style="margin:0;">
                 <thead>
                 <tr>
                     <th>Name</th>

@@ -9,8 +9,11 @@
         <h2>Manage - Badges</h2>
         <div class="col-md-8">
             <hr />
-            <input type="text" class='form-control' id="searchTable" placeholder="Search for names..">
-            <table id="usersTable" class="table table-bordered" style="margin:0;">
+            <div class="col-md-offset-8">
+                <input type="text" class='form-control' id="searchTable" placeholder="Search...">
+                <br />
+            </div>
+            <table id="searchableTable" class="table table-bordered" style="margin:0;">
                 <thead>
                 <tr>
                     <th>Name</th>

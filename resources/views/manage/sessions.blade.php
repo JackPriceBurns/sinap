@@ -9,7 +9,11 @@
         <h2>Manage - Sessions</h2>
         <div class="col-md-8">
             <hr />
-            <table class="table table-bordered" style="margin:0;">
+            <div class="col-md-offset-8">
+                <input type="text" class='form-control' id="searchTable" placeholder="Search...">
+                <br />
+            </div>
+            <table id="searchableTable" class="table table-bordered" style="margin:0;">
                 <thead>
                     <tr>
                         <th>Name</th>

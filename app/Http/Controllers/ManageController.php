@@ -116,6 +116,10 @@ class ManageController extends Controller
                     $user_id = $args[1];
                     if(is_numeric($user_id)){
                         $user = User::find($user_id);
+
+                        if($user->role_id !== Role::where('name', 'Teacher')->first()->id)
+                            return redirect('manage/teachers?error=user is not teacher');
+
                         if($user !== null){
                             $sessions = Session::where('user_id', $user->id)->get();
                             foreach($sessions as $session){
@@ -170,16 +174,21 @@ class ManageController extends Controller
                 if(isset($args[1])){
                     $user_id = $args[1];
                     if(is_numeric($user_id)){
+
                         $user = User::find($user_id);
-                        if($user !== null){
-                            $sessions = Session::where('user_id', $user->id)->get();
-                            foreach($sessions as $session){
-                                $session->delete();
-                            }
-                            $user->delete();
-                        } else {
+
+                        if($user->role_id !== Role::where('name', 'Student')->first()->id)
+                            return redirect('manage/students?error=user is not student');
+
+                        if($user === null)
                             return redirect('manage/students?error=user does not exist');
+
+                        $sessions = Session::where('user_id', $user->id)->get();
+                        foreach($sessions as $session){
+                            $session->delete();
                         }
+                        $user->delete();
+
                     } else {
                         return redirect('manage/students?error=user id not integer');
                     }
@@ -281,20 +290,26 @@ class ManageController extends Controller
 
                             if(is_numeric($year)){
                                 if(((int) $year) == 12 || ((int) $year) == 13){
-                                    $newUser = new User();
-                                    $newUser->name = $name;
-                                    $newUser->email = $email;
-                                    $newUser->year = $year;
-                                    $newUser->role_id = Role::where('name', 'Student')->first()->id;
-                                    $hash = Hash::hash(Setting::where('key', 'default_password')->first()->value);
-                                    $newUser->password = $hash['hash'];
-                                    $newUser->password_salt = $hash['salt'];
-                                    $result = $newUser->save();
 
-                                    if(!$result){
-                                        array_push($notAdded, 'failed adding ' . $name);
+                                    $user = User::where('email', $email)->first();
+
+                                    if($user !== null){
+                                        array_push($notAdded, 'user ' . $name . ' already exists');
+                                    } else {
+                                        $newUser = new User();
+                                        $newUser->name = $name;
+                                        $newUser->email = $email;
+                                        $newUser->year = $year;
+                                        $newUser->role_id = Role::where('name', 'Student')->first()->id;
+                                        $hash = Hash::hash(Setting::where('key', 'default_password')->first()->value);
+                                        $newUser->password = $hash['hash'];
+                                        $newUser->password_salt = $hash['salt'];
+                                        $result = $newUser->save();
+
+                                        if(!$result){
+                                            array_push($notAdded, 'failed adding ' . $name);
+                                        }
                                     }
-
                                 } else {
                                     array_push($notAdded, 'failed adding ' . $name. ': year is not 13 or 12');
                                 }
