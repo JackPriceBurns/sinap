@@ -26,10 +26,18 @@ class UserController extends Controller
 //        }
 //        exit();
 
-        return view('pages.user', ['users' => $badged_users]);
+        return view('user.users', ['users' => $badged_users]);
     }
 
-    public function user(User $id){
+    public function user($id){
 
+        $user = User::find($id);
+
+        if($user === null){
+            return redirect('/user/?error=user does not exist');
+        }
+
+
+        return view('user.user', ['user' => $user]);
     }
 }
