@@ -1,37 +1,6 @@
-@extends('layouts.overview')
+@extends('pages.overview')
 
 @section('custom_css', '')
-
-@section('custom_links')
-
-    <li><a href="/class">Classes</a></li>
-    @if( \App\Classes\Auth::is('Student') )
-        <li><a href="/homework">Homework</a></li>
-        <li><a href="/user">Users</a></li>
-    @elseif( \App\Classes\Auth::is('Teacher') )
-        <li><a href="/homework">Homework</a></li>
-        <li><a href="/user">Users</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="/manage/badges">Manage Badges</a></li>
-                <li><a href="/manage/students">Manage Students</a></li>
-            </ul>
-        </li>
-    @elseif( \App\Classes\Auth::is('Admin') )
-        <li><a href="/user">Users</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="/manage/badges">Manage Badges</a></li>
-                <li><a href="/manage/students">Manage Students</a></li>
-                <li><a href="/manage/teachers">Manage Teachers</a></li>
-                <li><a href="/manage/sessions">Manage Sessions</a></li>
-            </ul>
-        </li>
-    @endif
-
-@endsection
 
 @section('content')
 
@@ -39,7 +8,19 @@
 
         <h2>Classes</h2>
         @foreach( \App\Classes\Classroom::get() as $class)
-            <h2>{{ $class->name }}</h2>
+            <div class="col-md-4">
+                <a href="/class/someclass" class="class">
+                    <div class="class-heading">
+                        <img src="/img/iquWyQM.jpg" class="class-heading-img">
+                        <h2>{{ $class->name }} - {{ \App\Subject::find($class->subject_id)->name }}</h2>
+                    </div>
+
+                    <div class="class-body">
+                        <p>Students: {{ count(explode(',', $class->students)) }} Homework due: 0</p>
+                    </div>
+                </a>
+            </div>
+
         @endforeach
     </div>
 

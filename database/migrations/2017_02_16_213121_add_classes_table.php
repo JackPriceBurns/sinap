@@ -15,7 +15,7 @@ class AddClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('name')->unique();
+            $table->string('name');
             $table->string('students');
             $table->integer('subject_id');
             $table->timestamps();

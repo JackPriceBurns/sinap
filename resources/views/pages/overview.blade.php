@@ -4,6 +4,7 @@
 
 @section('custom_links')
 
+    <li><a href="/overview">Overview</a></li>
     <li><a href="/class">Classes</a></li>
     @if( \App\Classes\Auth::is('Student') )
         <li><a href="/homework">Homework</a></li>

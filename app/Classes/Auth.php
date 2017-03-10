@@ -48,7 +48,6 @@ class Auth
 
             if($ip !== $session->ip_address || $platform !== $session->platform){
                 if(!$passive){
-                    $session->delete();
                     return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'platform or IP mismatch'];
                 }
                 return ['success'=>false];
@@ -56,7 +55,6 @@ class Auth
 
             if(Carbon::now() > $session->expiration){
                 if(!$passive) {
-                    $session->delete();
                     return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session Expired'];
                 }
                 return ['success'=>false];

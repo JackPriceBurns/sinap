@@ -57,7 +57,7 @@ class ManageController extends Controller
 
         $packaged = [];
 
-        $users = User::get();
+        $users = User::orderBy('name', 'asc')->get();
         foreach($users as $user){
             array_push($packaged, ['user' => $user, 'badges' => Badge::where('user_id', $user->id)->get()]);
         }
@@ -100,7 +100,7 @@ class ManageController extends Controller
 
         $packaged = [];
 
-        $users = User::get();
+        $users = User::orderBy('name', 'asc')->get();
         foreach($users as $user){
             array_push($packaged, ['user' => $user, 'sessions' => Session::where('user_id', $user->id)->get()]);
         }
@@ -160,7 +160,7 @@ class ManageController extends Controller
             }
         }
 
-        $teachers = ['teachers' => User::where('role_id', Role::where('name', 'Teacher')->first()->id)->get()];
+        $teachers = ['teachers' => User::where('role_id', Role::where('name', 'Teacher')->first()->id)->orderBy('name', 'asc')->get()];
 
         return view('manage.teachers', $teachers);
 
@@ -334,7 +334,7 @@ class ManageController extends Controller
             }
         }
 
-        $students = ['students' => User::where('role_id', Role::where('name', 'Student')->first()->id)->get()];
+        $students = ['students' => User::where('role_id', Role::where('name', 'Student')->first()->id)->orderBy('name', 'asc')->get()];
 
         return view('manage.students', $students);
 

@@ -44,7 +44,6 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/overview">Overview</a></li>
                     @yield('links')
                 </ul>
                 <ul class="nav navbar-nav navbar-right">,
@@ -134,15 +133,7 @@
 
     @yield('content')
 
-    @section('footer')
-
-        <div class="content content-darker footer">
-            <div class="container">
-                <p style="text-align:center;">Designed &amp; Developed by Jack Price-Burns</p>
-            </div>
-        </div>
-
-    @show
+    @yield('footer')
 
     @yield('modal')
 

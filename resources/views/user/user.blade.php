@@ -15,42 +15,22 @@
                 @endif
                 <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
                     <li class="active">
-                        <a href="#mail-inbox.html">
+                        <a href="#">
                             <i class="fa fa-inbox"></i> Notifications  <span class="label pull-right">2</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#mail-compose.html"><i class="fa fa-envelope-o"></i> Send Message</a>
+                        <a href="#"><i class="fa fa-envelope-o"></i> Send Message</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-certificate"></i> Important</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-file-text-o"></i> Drafts <span class="label label-info pull-right inbox-notification">35</span>
-                        </a>
-                    </li>
-                    <li><a href="#"> <i class="fa fa-trash-o"></i> Trash</a></li>
                 </ul><!-- /.nav -->
 
-                <h5 class="nav-email-subtitle">More</h5>
-                <ul class="nav nav-pills nav-stacked nav-email mb-20 rounded shadow">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-folder-open"></i> Promotions  <span class="label label-danger pull-right">3</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-folder-open"></i> Job list
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-folder-open"></i> Backup
-                        </a>
-                    </li>
-                </ul>
+                    @if(\App\Classes\Auth::is('Admin'))
+                        <h5 class="nav-email-subtitle">Admin Actions</h5>
+                        <ul class="nav nav-pills nav-stacked nav-email mb-20 rounded shadow">
+                            <li><a href="#">Delete</a></li>
+                            <li><a href="#">Promote to Admin</a></li>
+                        </ul>
+                    @endif
             </div>
             <div class="col-sm-9">
 
