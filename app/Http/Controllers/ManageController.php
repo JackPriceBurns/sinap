@@ -55,14 +55,7 @@ class ManageController extends Controller
             }
         }
 
-        $packaged = [];
-
-        $users = User::orderBy('name', 'asc')->get();
-        foreach($users as $user){
-            array_push($packaged, ['user' => $user, 'badges' => Badge::where('user_id', $user->id)->get()]);
-        }
-
-        return view('manage.badges', ['users' => $packaged]);
+        return view('manage.badges', ['users' => User::orderBy('name', 'asc')->get()]);
     }
 
     public function sessions($args = null){

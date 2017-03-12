@@ -28,7 +28,7 @@ class CheckAuth
                 $request->merge(['authenticated' => false]);
             } else {
                 $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-                $role = Role::find(User::find($cookie->id)->role_id)->name;
+                $role = User::find($cookie->id)->role->name;
 
                 $request->merge(['authenticated' => true, 'auth_cookie'=>$cookie, 'role_name'=>$role]);
             }
@@ -46,7 +46,7 @@ class CheckAuth
         }
 
         $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-        $role = Role::find(User::find($cookie->id)->role_id)->name;
+        $role = User::find($cookie->id)->role->name;
 
         $request->merge(['authenticated' => true, 'auth_cookie'=>$cookie, 'role_name'=>$role]);
 

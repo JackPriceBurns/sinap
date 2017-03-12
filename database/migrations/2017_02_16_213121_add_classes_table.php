@@ -16,7 +16,6 @@ class AddClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('students');
             $table->integer('subject_id');
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddBadgeTable extends Migration
+class add_badge_table extends Migration
 {
     public function up()
     {
@@ -12,6 +12,7 @@ class AddBadgeTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id');
+            $table->string('colour')->default('warning');
             $table->timestamps();
         });
     }

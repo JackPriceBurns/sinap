@@ -17,8 +17,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('year', ['12','13', 'n/a'])->default('12');
             $table->string('password');
-            $table->rememberToken();
+            $table->string('password_salt');
+            $table->integer('role_id');
+            $table->integer('failed_logins')->default(0);
+            $table->timestamp('locked')->nullable();
             $table->timestamps();
         });
     }

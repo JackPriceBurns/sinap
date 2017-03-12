@@ -220,7 +220,7 @@ body {
     color:#333;
     text-decoration:none;
     border-radius: 7px;
-    border: 1px solid #ededed;
+    border: 1px solid #ccc;
     overflow:hidden;
     display:block;
 }
@@ -230,11 +230,18 @@ body {
     text-decoration:none;
 }
 
-.class-heading-img {
-    width:100%;
-    height:120px;
-    float: left;
-    float: right;
+.class:focus {
+    color:#333;
+    text-decoration:none;
+}
+
+.class-heading {
+    background-position: center;
+    padding: 35px;
+}
+
+.class-heading > h2 {
+    margin:0;
 }
 
 .class-body {

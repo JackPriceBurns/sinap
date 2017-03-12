@@ -14,6 +14,7 @@ class Auth
 {
 
     /**
+     * @param bool $passive
      * @return array
      */
     public static function check($passive = false){
@@ -84,7 +85,22 @@ class Auth
         }
 
         if($user->password !== Hash::hash($credentials['password'], $user->password_salt)){
+
+            $user->failed_logins = $user->failed_logins + 1;
+
+            if($user->failed_logins >= 3){
+                $user->locked = Carbon::now()->addHours(3);
+            }
+
+            $user->save();
+
             return ['success'=>false];
+        }
+
+        if($user->locked != null){
+            if(Carbon::now() < $user->locked){
+                return ['success'=>false, 'error'=>'account locked for ' . (new Carbon($user->locked))->diffForHumans(null, true)];
+            }
         }
 
         $contents = [

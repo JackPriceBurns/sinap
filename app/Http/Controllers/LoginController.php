@@ -21,6 +21,10 @@ class LoginController extends Controller
             return redirect('/overview')->withCookie($auth['cookie']);
         }
 
+        if(isset($auth['error'])){
+            return redirect('login?error=' . $auth['error']);
+        }
+
         return redirect('login?error=invalid username or password');
     }
 

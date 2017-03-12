@@ -24,18 +24,18 @@
                 <tbody>
                 @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user['user']->name }}</td>
+                        <td>{{ $user->name }}</td>
                         <td>
 
-                            @if(count($user['badges']) == 0)
+                            @if(count($user->badges) == 0)
                                 This user has no badges.
                             @endif
 
-                            @foreach($user['badges'] as $badge)
+                            @foreach($user->badges as $badge)
                                     <span class="label label-{{ $badge->colour }}">{{ $badge->name }}</span>
                             @endforeach
                         </td>
-                        <td><a href="/manage/badges?view={{ $user['user']->id }}">Edit</a></td>
+                        <td><a href="/manage/badges?view={{ $user->id }}">Edit</a></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="modal-body">
                         @php
-                            $modalBadges = \App\Badge::where('user_id', app('request')->input('view'))->get();
+                            $modalBadges = \App\User::find(app('request')->input('view'))->badges;
                         @endphp
                         <a class="btn btn-success" href="/manage/badges?add={{ app('request')->input('view') }}">Add Badge</a>
                         <hr />
