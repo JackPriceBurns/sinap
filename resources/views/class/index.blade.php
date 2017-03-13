@@ -10,7 +10,7 @@
         @php
             $user = \App\Classes\Auth::get();
             $classes = $user->classes;
-            $teaching = $user->teaching;
+            $teaching = $user->teaching();
         @endphp
         @if(count($classes) < 1)
             <p>You are not in any classes.</p>
@@ -19,11 +19,11 @@
                 <div class="col-md-4">
                     <a href="/class/{{ $class->id }}" class="class">
                         <div class="class-heading" style="background-image: url('/img/iquWyQM.jpg');">
-                            <h2>{{ $class->name }} - {{ \App\Subject::find($class->subject_id)->name }}</h2>
+                            <h2>{{ $class->name }} - {{ $class->subject->name }}</h2>
                         </div>
 
                         <div class="class-body">
-                            <p>Students: {{ count($class->users) }} Homework due: 0</p>
+                            <p>Students: {{ count($class->students) }} Homework due: 0</p>
                         </div>
                     </a>
                 </div>
@@ -36,11 +36,11 @@
                         <div class="col-md-4">
                             <a href="/class/{{ $class->id }}" class="class">
                                 <div class="class-heading" style="background-image: url('/img/iquWyQM.jpg');">
-                                    <h2>{{ $class->name }} - {{ \App\Subject::find($class->subject_id)->name }}</h2>
+                                    <h2>{{ $class->name }} - {{ $class->subject->name }}</h2>
                                 </div>
 
                                 <div class="class-body">
-                                    <p>Students: {{ count($class->users) }} Homework due: 0</p>
+                                    <p>Students: {{ count($class->students()) }} Homework due: 0</p>
                                 </div>
                             </a>
                         </div>

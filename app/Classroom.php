@@ -9,11 +9,11 @@ class Classroom extends Model
     protected $table = 'classes';
 
     public function subject(){
-        $this->belongsTo('App\Subject');
+        return $this->belongsTo('App\Subject');
     }
 
     public function students(){
-        return $this->belongsToMany('App\User', 'classes_students', 'user_id', 'class_id');
+        return $this->belongsToMany('App\User', 'classes_students', 'class_id', 'user_id');
     }
 
     public function teacher(){
