@@ -49,3 +49,4 @@ Route::get('manage/widgets', 'ManageController@widgets');
 # Class Controller
 
 Route::get('class', 'ClassController@index');
+Route::get('class/{args}', 'ClassController@classroom');

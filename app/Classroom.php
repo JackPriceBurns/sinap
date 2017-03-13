@@ -12,7 +12,11 @@ class Classroom extends Model
         $this->belongsTo('App\Subject');
     }
 
-    public function users(){
+    public function students(){
         return $this->belongsToMany('App\User', 'classes_students', 'user_id', 'class_id');
+    }
+
+    public function teacher(){
+        return $this->belongsTo('App\User', 'teacher_id');
     }
 }
