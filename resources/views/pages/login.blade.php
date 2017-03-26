@@ -2,7 +2,9 @@
 
 @section('title', 'SINAP - Login')
 
-@section('custom_css', '<link rel="stylesheet" href="/css/login.css">')
+@section('custom_css')
+    <link rel="stylesheet" href="/css/login.css">
+@endsection
 
 @section('content')
 

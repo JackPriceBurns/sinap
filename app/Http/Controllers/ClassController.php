@@ -24,4 +24,19 @@ class ClassController extends Controller
 
         return view('class.class', ['classroom' => $classroom]);
     }
+
+    public function homework($arguments = null){
+
+        if(!is_numeric($arguments)){
+            return redirect('class?error=class id is not numeric');
+        }
+
+        $classroom = Classroom::find($arguments);
+
+        if($classroom === null){
+            return redirect('class?error=class does not exist');
+        }
+
+        return view('class.homework', ['classroom' => $classroom]);
+    }
 }

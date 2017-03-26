@@ -2,7 +2,11 @@
 
 @section('title', 'SINAP - Home')
 
-@section('body', 'style="background-image:url(\'/img/index.png\');background-repeat: no-repeat;background-size: 200% 200%;"')
+@section('body')
+
+    style="background-image:url('/img/index.png');background-repeat: no-repeat;background-size: 200% 200%;"
+
+@endsection
 
 @section('content', ' ')
 

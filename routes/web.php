@@ -50,3 +50,4 @@ Route::get('manage/widgets', 'ManageController@widgets');
 
 Route::get('class', 'ClassController@index');
 Route::get('class/{args}', 'ClassController@classroom');
+Route::get('class/{args}/homework', 'ClassController@homework');

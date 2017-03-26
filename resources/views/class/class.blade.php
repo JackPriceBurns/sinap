@@ -1,6 +1,8 @@
 @extends('pages.overview')
 
-@section('custom_css', '<link rel="stylesheet" href="/css/class.css">')
+@section('custom_css')
+    <link rel="stylesheet" href="/css/class.css">
+@endsection
 
 @section('content')
 
@@ -10,9 +12,9 @@
 
         <div class="row">
             <div class="col-md-8">
+                @section('class.main')
                 <table class="table table-bordered">
                     <tbody>
-
                         <tr>
                             <td>
                                 <div class="portlet">
@@ -120,6 +122,7 @@
                         </tr>
                     </tbody>
                 </table>
+                @show
             </div>
 
             <div class="col-md-4">
@@ -138,6 +141,15 @@
                 </div>
 
                 <br />
+
+                @section('class.navbar')
+                    <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
+                        <li class="active"><a href="/class/{{$classroom->id}}/">News</a></li>
+                        <li><a href="/class/{{$classroom->id}}/homework">Homework</a></li>
+                        <li><a href="#">Notifications</a></li>
+                        <li><a href="#">Notifications</a></li>
+                    </ul>
+                @show
 
                 <div class="portlet">
                     <div class="portlet-title">
@@ -159,29 +171,13 @@
                     <div class="portlet-title">
                         <div class="caption caption-green">
                             <i class="glyphicon glyphicon-link"></i>
-                            <span class="caption-subject text-uppercase"> Links</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-
-                        <h4></h4>
-                        <p></p>
-                    </div>
-                </div>
-
-                <br />
-
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption caption-green">
-                            <i class="glyphicon glyphicon-link"></i>
                             <span class="caption-subject text-uppercase"> Students</span>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <table class="table table-bordered">
                             <tbody>
-                                @foreach($classroom->students as $student)
+                                @foreach($classroom->students->sortBy('name') as $student)
                                 <tr>
                                     <td>{{ $student->name }}</td>
                                 </tr>

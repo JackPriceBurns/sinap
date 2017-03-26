@@ -25,7 +25,7 @@ class User extends Model
     }
 
     public function classes(){
-        return $this->belongsToMany('App\Classroom', 'classes_students', 'class_id', 'user_id');
+        return $this->belongsToMany('App\Classroom', 'classes_students', 'user_id', 'class_id');
     }
 
     public function teaching(){
