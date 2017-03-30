@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class add_badge_table extends Migration
+class AddBadgeTable extends Migration
 {
     public function up()
     {
