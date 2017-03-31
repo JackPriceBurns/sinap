@@ -31,11 +31,11 @@ class Term
         return $this;
     }
 
-    public function __add(Term $__value__){
-        if($this->power !== $__value__->getPower()){
+    public function add(Term $term){
+        if($this->power !== $term->getPower()){
             throw new \Exception("Power's are not the same!");
         }
-        $this->coefficient += $__value__->getCoefficient();
+        $this->coefficient += $term->getCoefficient();
         return $this;
     }
 }

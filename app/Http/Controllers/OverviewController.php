@@ -11,13 +11,12 @@ class OverviewController extends Controller
 {
     public function overview(){
 
-        if(!extension_loaded("operator")) print "skip";
-
         $expression = new Expression();
         $expression->add((new X(2))->setCoefficient(1));
         $expression->minus((new X(1))->setCoefficient(4));
         $expression->add((new X(0))->setCoefficient(4));
 
+        //exit($expression->getReadable());
 
         return view('pages.overview');
 
