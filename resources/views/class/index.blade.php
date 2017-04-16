@@ -1,7 +1,5 @@
 @extends('pages.overview')
 
-@section('custom_css', '')
-
 @section('content')
 
     <div class="container">
@@ -10,7 +8,7 @@
         @php
             $user = \App\Classes\Auth::get();
             $classes = $user->classes;
-            $teaching = $user->teaching();
+            $teaching = $user->teaching;
         @endphp
         @if(count($classes) < 1)
             <p>You are not in any classes.</p>

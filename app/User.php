@@ -29,7 +29,7 @@ class User extends Model
     }
 
     public function teaching(){
-        return Classroom::where('teacher_id', $this->id)->get();
+        return $this->hasMany('App\Classroom', 'teacher_id');
     }
 
     public function lastSeen(){

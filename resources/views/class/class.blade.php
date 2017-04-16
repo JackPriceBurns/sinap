@@ -15,111 +15,32 @@
                 @section('class.main')
                 <table class="table table-bordered">
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                            <span class="caption-subject text-uppercase"> Homework M5C3TEST</span>
-                                            <span class="caption-helper">12 Hours ago</span>
+                        @foreach($classroom->news as $news)
+                            <tr>
+                                <td>
+                                    <div class="portlet">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                <span class="caption-subject text-uppercase"> {{ $news->title }}</span>
+                                                <span class="caption-helper">{{ (new \Carbon\Carbon($news->created_at))->diffForHumans() }}</span>
+                                            </div>
+                                            <div class="actions">
+                                                @if($news->link !== null)
+                                                <a href="{{ $news->link }}" class="btn">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                    View
+                                                </a>
+                                                @endif
+                                            </div>
                                         </div>
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                View
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>Get the doing done!</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                            <span class="caption-subject text-uppercase"> Homework M5C3TEST</span>
-                                            <span class="caption-helper">12 Hours ago</span>
-                                        </div>
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                View
-                                            </a>
+                                        <div class="portlet-body">
+                                            <p>{{ $news->body }}</p>
                                         </div>
                                     </div>
-                                    <div class="portlet-body">
-                                        <p>Get the doing done!</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                            <span class="caption-subject text-uppercase"> Missing Text Book</span>
-                                            <span class="caption-helper">12 Hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>A textbook has been misplaced from Mr Watling's classroom, can everyone check if they have this book, he is getting very upset.</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                            <span class="caption-subject text-uppercase"> Homework M5C3TEST</span>
-                                            <span class="caption-helper">12 Hours ago</span>
-                                        </div>
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                View
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>Get the doing done!</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                            <span class="caption-subject text-uppercase"> Homework M5C3TEST</span>
-                                            <span class="caption-helper">12 Hours ago</span>
-                                        </div>
-                                        <div class="actions">
-                                            <a href="javascript:;" class="btn">
-                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                View
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>Get the doing done!</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 @show
