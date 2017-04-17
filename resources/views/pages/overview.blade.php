@@ -10,7 +10,7 @@
         <li><a href="/homework">Homework</a></li>
         <li><a href="/user">Users</a></li>
     @elseif( \App\Classes\Auth::is('Teacher') )
-        <li><a href="/homework">Homework</a></li>
+        <li><a href="/manage/questions">Questions</a></li>
         <li><a href="/user">Users</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>

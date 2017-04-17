@@ -23,4 +23,8 @@ class Classroom extends Model
     public function news(){
         return $this->belongsToMany('App\News', 'news_classes', 'class_id', 'news_id');
     }
+
+    public function homework(){
+        return $this->belongsToMany('App\Homework', 'homework_classes', 'class_id', 'homework_id');
+    }
 }

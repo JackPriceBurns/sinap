@@ -67,8 +67,7 @@
                     <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
                         <li class="active"><a href="/class/{{$classroom->id}}/">News</a></li>
                         <li><a href="/class/{{$classroom->id}}/homework">Homework</a></li>
-                        <li><a href="#">Notifications</a></li>
-                        <li><a href="#">Notifications</a></li>
+                        <li><a href="/class/{{ $classroom->id }}/stats">Stats</a></li>
                     </ul>
                 @show
 
@@ -110,7 +109,6 @@
                 <!-- END Portlet PORTLET-->
             </div>
         </div>
-
     </div>
 
 @endsection

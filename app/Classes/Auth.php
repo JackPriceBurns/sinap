@@ -5,18 +5,14 @@ namespace App\Classes;
 use App\User;
 use App\Session;
 use Carbon\Carbon;
-use Cookie;
-use Crypt;
-use Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Request;
 use Jenssegers\Agent\Agent;
 
 class Auth
 {
 
-    /**
-     * @param bool $passive
-     * @return array
-     */
     public static function check($passive = false){
 
         if(Cookie::has('auth')){
@@ -130,7 +126,8 @@ class Auth
     }
 
     /**
-     * @return boolean
+     * @param $role
+     * @return bool
      */
     public static function is($role){
 
