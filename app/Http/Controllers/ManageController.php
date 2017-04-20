@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classes\Hash;
+use App\Question;
 use App\Session;
 use App\Setting;
 use App\User;
@@ -55,7 +56,7 @@ class ManageController extends Controller
             }
         }
 
-        return view('manage.badges', ['users' => User::orderBy('name', 'asc')->get()]);
+        return view('manage.badges', ['users' => User::orderBy('name', 'asc')->get(), 'badges'=>Badge::get()]);
     }
 
     public function sessions($args = null){
@@ -331,5 +332,10 @@ class ManageController extends Controller
 
         return view('manage.students', $students);
 
+    }
+
+    public function questions($arguments = null){
+        $questions = Question::get();
+        return view('manage.questions', ['questions' => $questions]);
     }
 }

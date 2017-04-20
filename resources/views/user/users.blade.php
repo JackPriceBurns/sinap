@@ -26,7 +26,7 @@
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading">{{ $user['user']->name }} <small> {{ ($user['user']->year == 'n/a') ? '' : 'Yr '.$user['user']->year }}</small></h4>
-                                <h5>Last Seen: {{ \App\Classes\Auth::lastSeen($user['user']->id) }}</h5>
+                                <h5>Last Seen: {{ $user['last_seen'] }}</h5>
                                 <hr style="margin:8px auto">
 
                                 <span class="label label-danger">{{ $user['role']->name }}</span>

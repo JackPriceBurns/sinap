@@ -21,7 +21,7 @@
                                     <div class="portlet">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="glyphicon glyphicon-calendar"></i>
+                                                <i class="glyphicon glyphicon-{{ $news->icon }}"></i>
                                                 <span class="caption-subject text-uppercase"> {{ $news->title }}</span>
                                                 <span class="caption-helper">{{ (new \Carbon\Carbon($news->created_at))->diffForHumans() }}</span>
                                             </div>
@@ -67,25 +67,9 @@
                     <ul class="nav nav-pills nav-stacked nav-email shadow mb-20">
                         <li class="active"><a href="/class/{{$classroom->id}}/">News</a></li>
                         <li><a href="/class/{{$classroom->id}}/homework">Homework</a></li>
-                        <li><a href="/class/{{ $classroom->id }}/stats">Stats</a></li>
+                        <li><a href="/class/{{ $classroom->id }}/stats">Statistics</a></li>
                     </ul>
                 @show
-
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption caption-green">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            <span class="caption-subject text-uppercase"> Statistics</span>
-                            <span class="caption-helper">Everyone loves stats!</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <h4>Heading Text</h4>
-                        <p></p>
-                    </div>
-                </div>
-
-                <br />
 
                 <div class="portlet">
                     <div class="portlet-title">

@@ -45,6 +45,8 @@ Route::get('manage/classes', 'ManageController@classes')->middleware("teacher");
 Route::get('manage/sessions', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/sessions/{args}', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/widgets', 'ManageController@widgets');
+Route::get('manage/questions', 'ManageController@questions');
+Route::get('manage/questions/{args}', 'ManageController@questions');
 
 # Class Controller
 
@@ -57,3 +59,4 @@ Route::get('class/{args}/stats', 'ClassController@stats');
 
 Route::get('homework', 'HomeworkController@index');
 Route::get('homework/{args}', 'HomeworkController@homework');
+Route::post('homework/{args}/submit', 'HomeworkController@submit');

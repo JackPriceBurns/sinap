@@ -12,6 +12,22 @@
 
     <table class="table table-bordered">
         <tbody>
+        @if(count($classroom->homework) < 1)
+            <tr>
+                <td>
+                    <div class="portlet">
+                        <div class="portlet-title" style="margin:0;border:0;min-height:20px;">
+                            <div class="caption">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                                <span class="caption-subject text-uppercase"> No Homework!</span>
+                                <span class="caption-helper">No homework has been set yet.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        @endif
         @foreach($classroom->homework as $homework)
             <tr>
                 <td>
@@ -20,7 +36,7 @@
                             <div class="caption">
                                 <i class="glyphicon glyphicon-pencil"></i>
                                 <span class="caption-subject text-uppercase"> {{ $homework->name }}</span>
-                                <span class="caption-helper">{{ (new \Carbon\Carbon($homework->created_at))->diffForHumans() }}</span>
+                                <span class="caption-helper">Set: {{ (new \Carbon\Carbon($homework->created_at))->diffForHumans() }} Due: {{ (new \Carbon\Carbon($homework->due))->diffForHumans() }}</span>
                             </div>
                             <div class="actions">
                                 <a href="/homework/{{ $homework->id }}" class="btn"><i class="glyphicon glyphicon-pencil"></i> View</a>

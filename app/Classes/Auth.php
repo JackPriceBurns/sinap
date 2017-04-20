@@ -15,56 +15,54 @@ class Auth
 
     public static function check($passive = false){
 
-        if(Cookie::has('auth')){
-
-            //Carbon::now()->subHours(3);
-
-            $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-            Crypt::encrypt($cookie);
-            $ip = Request::ip();
-            $agent = new Agent();
-            $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());
-
-            $user = User::find($cookie->id);
-
-            if($user === null){
-                if(!$passive){
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find User!'];
-                }
-                return ['success'=>false];
-            }
-
-            $session = Session::where('auth_id', $cookie->token)->first();
-
-            if($session === null){
-                if(!$passive){
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find Session'];
-                }
-                return ['success'=>false];
-            }
-
-            if($ip !== $session->ip_address || $platform !== $session->platform){
-                if(!$passive){
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'platform or IP mismatch'];
-                }
-                return ['success'=>false];
-            }
-
-            if(Carbon::now() > $session->expiration){
-                if(!$passive) {
-                    return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session Expired'];
-                }
-                return ['success'=>false];
-            }
-
-            $session->expiration = Carbon::now()->addHours(3);
-
-            $session->save();
-
-            return ['success'=>true];
-
+        if(!Cookie::has('auth')) {
+            return ['success'=>false];
         }
-        return ['success'=>false];
+
+        $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
+
+        Crypt::encrypt($cookie);
+        $ip = Request::ip();
+        $agent = new Agent();
+        $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());
+
+        $user = User::find($cookie->id);
+
+        if($user === null){
+            if(!$passive){
+                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find User!'];
+            }
+            return ['success'=>false];
+        }
+
+        $session = Session::where('auth_id', $cookie->token)->first();
+
+        if($session === null){
+            if(!$passive){
+                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find Session'];
+            }
+            return ['success'=>false];
+        }
+
+        if($ip !== $session->ip_address || $platform !== $session->platform){
+            if(!$passive){
+                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'platform or IP mismatch'];
+            }
+            return ['success'=>false];
+        }
+
+        if(Carbon::now() > $session->expiration){
+            if(!$passive) {
+                return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session Expired'];
+            }
+            return ['success'=>false];
+        }
+
+        $session->expiration = Carbon::now()->addHours(3);
+
+        $session->save();
+
+        return ['success'=>true, 'user'=>$user, 'cookie'=>$cookie];
 
     }
 
@@ -148,8 +146,7 @@ class Auth
             return null;
         }
 
-        $cookie = Request::get('auth_cookie');
-        return User::find($cookie->id);
+        return Request::get('user');
     }
 
     public static function lastSeen($user_id)

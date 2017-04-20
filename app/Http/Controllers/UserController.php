@@ -5,26 +5,26 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Badge;
 use App\Role;
+use App\Session;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
     public function index(){
         $users = User::orderBy('name', 'ASC')->get();
+        $badges = Badge::get();
+        $roles = Role::get();
+        $sessions = Session::get();
         $badged_users = array();
         foreach($users as $user){
-            $badges = Badge::where('user_id', $user->id)->get();
-            $role = Role::find($user->role_id);
-            $new_user = ['user' => $user, 'badges' => $badges, 'role' => $role];
+            $badges = $badges->where('user_id', $user->id);
+            $role = $roles->find($user->role_id);
+            $session = $sessions->where('user_id', $user->id)->sortByDesc('expiration')->first();
+
+            $last_seen = ($session == null) ? 'never' : (new Carbon($session->updated_at))->diffForHumans();
+            $new_user = ['user' => $user, 'badges' => $badges, 'role' => $role, 'last_seen'=>$last_seen];
             array_push($badged_users, $new_user);
         }
-
-//        foreach($badged_users as $user){
-//            echo $user['user'] . '<br />';
-//            echo $user['badges'] . '<br />';
-//            echo $user['role'] . '<br />';
-//            echo '<hr />';
-//        }
-//        exit();
 
         return view('user.users', ['users' => $badged_users]);
     }

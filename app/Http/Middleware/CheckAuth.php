@@ -18,37 +18,26 @@ class CheckAuth
             '/',
         ];
 
-    public function handle($request, Closure $next)
-    {
-
-        if($this->isExcept($request)){
-            $check = Auth::check(true);
-
-            if(!$check['success']){
-                $request->merge(['authenticated' => false]);
-            } else {
-                $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-                $role = User::find($cookie->id)->role->name;
-
-                $request->merge(['authenticated' => true, 'auth_cookie'=>$cookie, 'role_name'=>$role]);
-            }
-
-            return $next($request);
-        }
+    public function handle($request, Closure $next) {
 
         $check = Auth::check();
 
         if(!$check['success']){
-            if(isset($check['cookie'])){
-                return redirect('login?error=' . $check['error'])->withCookie($check['cookie']);
+
+            $loginError = (isset($check['error'])) ? $check['error'] : 'please login';
+
+            if($this->isExcept($request)){
+                $request->merge(['authenticated' => false]);
+            } else {
+                $redirect = 'login?error=' . $loginError;
+                return (isset($check['cookie'])) ? redirect($redirect)->with($check['cookie']) : redirect($redirect);
             }
-            return redirect('login?error=please login');
+
+        } else {
+
+            $request->merge(['authenticated' => true, 'auth_cookie'=>$check['cookie'], 'role_name'=>$check['user']->role->name, 'user'=>$check['user']]);
+
         }
-
-        $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-        $role = User::find($cookie->id)->role->name;
-
-        $request->merge(['authenticated' => true, 'auth_cookie'=>$cookie, 'role_name'=>$role]);
 
         return $next($request);
     }

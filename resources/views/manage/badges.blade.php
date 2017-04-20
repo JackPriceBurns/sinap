@@ -1,7 +1,5 @@
 @extends('pages.overview')
 
-@section('custom_css', '')
-
 @section('content')
 
     <div class="container">
@@ -27,11 +25,11 @@
                         <td>{{ $user->name }}</td>
                         <td>
 
-                            @if(count($user->badges) == 0)
+                            @if(count($badges->where('user_id', $user->id)) == 0)
                                 This user has no badges.
                             @endif
 
-                            @foreach($user->badges as $badge)
+                            @foreach($badges->where('user_id', $user->id) as $badge)
                                     <span class="label label-{{ $badge->colour }}">{{ $badge->name }}</span>
                             @endforeach
                         </td>
@@ -50,19 +48,19 @@
                         <tbody>
                         <tr>
                             <td>Badges</td>
-                            <td>{{ count(\App\Badge::get()) }}</td>
+                            <td>{{ count($badges) }}</td>
                         </tr>
                         <tr>
                             <td>Red Badges</td>
-                            <td>{{ count(\App\Badge::where('colour', 'danger')->get()) }}</td>
+                            <td>{{ count($badges->where('colour', 'danger')) }}</td>
                         </tr>
                         <tr>
                             <td>Green Badges</td>
-                            <td>{{ count(\App\Badge::where('colour', 'success')->get()) }}</td>
+                            <td>{{ count($badges->where('colour', 'success')) }}</td>
                         </tr>
                         <tr>
                             <td>Yellow Badges</td>
-                            <td>{{ count(\App\Badge::where('colour', 'warning')->get()) }}</td>
+                            <td>{{ count($badges->where('colour', 'warning')) }}</td>
                         </tr>
 
                         </tbody>
