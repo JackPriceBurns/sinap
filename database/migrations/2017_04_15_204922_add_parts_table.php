@@ -16,6 +16,7 @@ class AddPartsTable extends Migration
             $table->string('question');
             $table->string('tip');
             $table->string('answer');
+            $table->boolean('requires_marking')->default(false);
             $table->timestamps();
         });
     }

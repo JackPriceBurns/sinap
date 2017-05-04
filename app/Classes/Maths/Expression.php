@@ -33,26 +33,17 @@ class Expression
         $yPowers = [];
         foreach(array_merge($this->positiveTerms, $this->negativeTerms) as $term){
             if($term instanceof X){
-                if(isset($xPowers[(String)$term->getPower()])){
-                    array_push($xPowers[(String)$term->getPower()], $term);
-                } else {
-                    $xPowers[(String)$term->getPower()] = [];
-                    array_push($xPowers[(String)$term->getPower()], $term);
-                }
+                if(!isset($xPowers[(String)$term->getPower()])) $xPowers[(String)$term->getPower()] = [];
+                array_push($xPowers[(String)$term->getPower()], $term);
             } else if($term instanceof Y) {
-                if(isset($yPowers[(String)$term->getPower()])){
-                    array_push($yPowers[(String)$term->getPower()], $term);
-                } else {
-                    $xPowers[(String)$term->getPower()] = [];
-                    array_push($yPowers[(String)$term->getPower()], $term);
-                }
+                if(!isset($yPowers[(String)$term->getPower()])) $yPowers[(String)$term->getPower()] = [];
+                array_push($yPowers[(String)$term->getPower()], $term);
             } else {
-                throw new \Exception('Unrecognised Power');
+                throw new \Exception('Unrecognised Term');
             }
         }
 
-        $this->negativeTerms = [];
-        $this->positiveTerms = [];
+        $this->negativeTerms = $this->positiveTerms = [];
 
         foreach($xPowers as $terms){
             $xTerm = new X($terms[0]->getPower());
@@ -69,13 +60,13 @@ class Expression
             }
         }
         foreach($yPowers as $terms){
-            $yTerm = new X($terms[0]->getPower());
+            $yTerm = new Y($terms[0]->getPower());
             $yTerm->setCoefficient(0);
 
             foreach($terms as $newTerm) $yTerm->add($newTerm);
 
             if($yTerm->getCoefficient() != 0){
-                if($yTerm->getCoefficient() < 0){
+                if($yTerm->getCoefficient() < 0){ 
                     array_push($this->negativeTerms, $yTerm);
                 } else {
                     array_push($this->positiveTerms, $yTerm);

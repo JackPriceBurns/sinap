@@ -1,4 +1,4 @@
-@extends('pages.overview')
+@extends('layouts.overview')
 
 @section('custom_css')
     <link rel="stylesheet" href="/css/class.css">

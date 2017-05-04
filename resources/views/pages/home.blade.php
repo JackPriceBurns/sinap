@@ -1,4 +1,4 @@
-@extends((Request::get('authenticated')) ? 'pages.overview' : 'layouts.page')
+@extends((Request::get('authenticated')) ? 'layouts.overview' : 'layouts.page')
 
 @section('title', 'SINAP - Home')
 

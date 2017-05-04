@@ -12,6 +12,10 @@ class User extends Model
         return $this->belongsTo('App\Role');
     }
 
+    public function submitted(){
+        return $this->hasMany('App\Submit');
+    }
+
     public function sessions(){
         return $this->hasMany('App\Session');
     }

@@ -60,3 +60,4 @@ Route::get('class/{args}/stats', 'ClassController@stats');
 Route::get('homework', 'HomeworkController@index');
 Route::get('homework/{args}', 'HomeworkController@homework');
 Route::post('homework/{args}/submit', 'HomeworkController@submit');
+Route::get('homework/{args}/submitted', 'HomeworkController@submitted');

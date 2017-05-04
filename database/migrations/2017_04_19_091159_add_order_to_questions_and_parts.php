@@ -13,10 +13,10 @@ class AddOrderToQuestionsAndParts extends Migration
      */
     public function up()
     {
-        Schema::create('questions_homework', function (Blueprint $table) {
+        Schema::table('questions_homework', function (Blueprint $table) {
             $table->integer('order')->after('question_id');
         });
-        Schema::create('parts', function (Blueprint $table) {
+        Schema::table('parts', function (Blueprint $table) {
             $table->integer('order')->after('answer');
         });
     }

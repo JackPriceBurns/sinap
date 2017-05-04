@@ -1,4 +1,4 @@
-@extends('pages.overview')
+@extends('layouts.overview')
 
 @section('custom_css', '')
 

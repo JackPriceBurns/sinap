@@ -9,6 +9,10 @@ class Homework extends Model
 
     protected $table = 'homework';
 
+    public function submits(){
+        return $this->hasMany('App\Submits');
+    }
+
     public function questions(){
         return $this->belongsToMany('App\Question', 'questions_homework', 'homework_id', 'question_id');
     }

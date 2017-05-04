@@ -13,6 +13,8 @@ use Jenssegers\Agent\Agent;
 class Auth
 {
 
+    const debug = false;
+
     public static function check($passive = false){
 
         if(!Cookie::has('auth')) {
@@ -20,8 +22,6 @@ class Auth
         }
 
         $cookie = json_decode(Crypt::decrypt(Cookie::get('auth')));
-
-        Crypt::encrypt($cookie);
         $ip = Request::ip();
         $agent = new Agent();
         $platform = $agent->browser() . ":" . $agent->version($agent->browser()) . "\\" . $agent->platform() . ":" . $agent->version($agent->platform());
@@ -30,6 +30,7 @@ class Auth
 
         if($user === null){
             if(!$passive){
+                if(Auth::debug) exit('Auth: Unable to find user!');
                 return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find User!'];
             }
             return ['success'=>false];
@@ -39,6 +40,7 @@ class Auth
 
         if($session === null){
             if(!$passive){
+                if(Auth::debug) exit('Auth: Unable to find Session!');
                 return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'unable to find Session'];
             }
             return ['success'=>false];
@@ -46,6 +48,7 @@ class Auth
 
         if($ip !== $session->ip_address || $platform !== $session->platform){
             if(!$passive){
+                if(Auth::debug) exit('Auth: Platform or IP mismatch!');
                 return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'platform or IP mismatch'];
             }
             return ['success'=>false];
@@ -53,6 +56,7 @@ class Auth
 
         if(Carbon::now() > $session->expiration){
             if(!$passive) {
+                if(Auth::debug) exit('Auth: Session expired!');
                 return ['success'=>false, 'cookie'=>Cookie::forget('auth'), 'error'=>'Session Expired'];
             }
             return ['success'=>false];

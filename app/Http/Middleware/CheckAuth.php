@@ -7,8 +7,6 @@ use Closure;
 use Cookie;
 use Crypt;
 use Illuminate\Http\Request;
-use App\Role;
-use App\User;
 
 class CheckAuth
 {
@@ -30,7 +28,9 @@ class CheckAuth
                 $request->merge(['authenticated' => false]);
             } else {
                 $redirect = 'login?error=' . $loginError;
-                return (isset($check['cookie'])) ? redirect($redirect)->with($check['cookie']) : redirect($redirect);
+                if (isset($check['cookie'])) {
+                    return redirect($redirect)->withCookie($check['cookie']);
+                } else return redirect($redirect);
             }
 
         } else {

@@ -1,8 +1,10 @@
-@extends('pages.overview')
+@extends('layouts.overview')
 
 @section('title', 'SINAP - Users')
 
-@section('custom_css', '<link rel="stylesheet" href="/css/user.css">')
+@section('custom_css')
+    <link rel="stylesheet" href="/css/user.css">
+@endsection
 
 @section('content')
 
