@@ -28,7 +28,7 @@ Route::get('user/{id}', 'UserController@user');
 
 # Overview Controller
 
-Route::get('overview', 'OverviewController@overview');
+Route::get('home', 'OverviewController@overview');
 
 # Manage Controller
 
@@ -44,9 +44,9 @@ Route::post('manage/teachers/{args}', 'ManageController@teachers')->middleware("
 Route::get('manage/classes', 'ManageController@classes')->middleware("teacher");
 Route::get('manage/sessions', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/sessions/{args}', 'ManageController@sessions')->middleware("admin");
-Route::get('manage/widgets', 'ManageController@widgets');
-Route::get('manage/questions', 'ManageController@questions');
-Route::get('manage/questions/{args}', 'ManageController@questions');
+//Route::get('manage/widgets', 'ManageController@widgets');
+Route::get('manage/questions', 'ManageController@questions')->middleware("teacher");
+Route::get('manage/questions/{args}', 'ManageController@questions')->middleware("teacher");
 
 # Class Controller
 

@@ -28,7 +28,7 @@
                         <td>{{ $session['user']->name }}</td>
                         <td>{{ $session['user']->email }}</td>
                         <td>{{ count($session['sessions']) }}</td>
-                        <td><a href="/manage/sessions/delete.all.{{ $session['user']->id }}">Delete Sessions</a> - <a href="/manage/sessions?user={{ $session['user']->id }}">View Sessions</a></td>
+                        <td><a href="/manage/sessions/delete.all.{{ $session['user']->id }}">Delete Sessions</a> - <a href="/manage/sessions?user_id={{ $session['user']->id }}">View Sessions</a></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    @if ( app('request')->input('user') )
+    @if ( app('request')->input('user_id') )
         <div class="modal fade" role="dialog" id="user">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="modal-body">
                         @php
-                            $modalSessions = \App\Session::where('user_id', app('request')->input('user'))->orderBy('expiration', 'desc')->get();
+                            $modalSessions = \App\Session::where('user_id', app('request')->input('user_id'))->orderBy('expiration', 'desc')->get();
                         @endphp
                         <table class="table table-bordered" style="margin:0;">
                             <thead>
