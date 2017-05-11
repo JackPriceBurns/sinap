@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Auth;
 use App\Classes\Hash;
+use App\Classroom;
+use App\Homework;
+use App\Part;
 use App\Question;
 use App\Session;
 use App\Setting;
+use App\Subject;
+use App\Tag;
 use App\User;
 use App\Role;
 use App\Badge;
@@ -337,5 +343,165 @@ class ManageController extends Controller
     public function questions($arguments = null){
         $questions = Question::get();
         return view('manage.questions', ['questions' => $questions]);
+    }
+
+    public function classes(Request $request, $args = null){
+        if($request->isMethod('post')){
+            if($args == "addclass"){
+                if($request->input('name') != "" && $request->input('subjects') != ""){
+
+                    $name = $request->input('name');
+                    $subject = Subject::find($request->input('subjects'));
+
+                    if($subject === null){
+                        return redirect('manage/classes?error=subject not found');
+                    }
+
+                    $classroom = new Classroom();
+                    $classroom->name = $name;
+                    $classroom->subject_id = $subject->id;
+                    $classroom->teacher_id = Auth::get()->id;
+                    $classroom->save();
+
+                } else {
+                    return redirect('manage/classes?error=name and subject must be set');
+                }
+            } else if($args == "addstudent") {
+                if($request->input('names') != "" && $request->input('class_id') != ""){
+
+                    $classroom = Classroom::find($request->input('class_id'));
+                    $emails = explode(",", $request->input('names'));
+                    $emails = array_map(function($email){ return trim($email); }, $emails);
+
+                    if($classroom === null){
+                        return redirect('manage/classes?error=class not found');
+                    }
+
+                    foreach($emails as $email){
+                        if($email != "" && $email != null){
+                            $user = User::where('email', $email)->first();
+                            if($user === null){
+                                return redirect('manage/classes?error=user not found ' . $email);
+                            }
+                            $classroom->students()->attach($user->id);
+                        }
+
+                    }
+
+                }  else {
+                    return redirect('manage/classes?error=name must be set');
+                }
+            }
+        }
+        if($args !== null){
+            if(explode('.', $args)[0] == "delete"){
+                if(is_numeric(explode('.', $args)[1])){
+                    $classroom = Classroom::find(explode('.', $args)[1]);
+                    if($classroom === null){
+                        return redirect('manage/classes?error=class not found');
+                    }
+                    $classroom->delete();
+                } else {
+                    return redirect('manage/classes?error=class id not numeric');
+                }
+            }
+        }
+
+        return view('manage.classes', ['classrooms' => Classroom::get()]);
+    }
+
+    public function submitQuestion(Request $request){
+
+        if(!is_numeric($request->input('parts'))){
+            return redirect('manage/questions?error=parts is not numeric');
+        }
+
+        if($request->input('parts') < 1){
+            return redirect('manage/questions?error=you need to add at least 1 part');
+        }
+
+        $question = new Question();
+        $question->context = ($request->input('question-context') == null) ? "blank" : $request->input('question-context');
+        $question->difficulty = 50;
+        $question->save();
+
+        for($x = 0; $x < $request->input('parts'); $x++){
+            $part = new Part();
+            $part->type = ($request->input('type:' . ($x+1)) == 'ma') ? 'mp' : 'a';
+            $part->question_id = $question->id;
+            $part->question = $request->input('part-question-' . ($x+1));
+            $part->answer = $request->input('answer:' . ($x+1));
+            $part->tip = "N/A";
+            $part->order = $x+1;
+            $part->save();
+        }
+
+        foreach(explode(" ", $request->input('tags')) as $tag_name){
+
+            $tag = Tag::where('tag', $tag_name)->first();
+
+            if($tag === null){
+                $tag = new Tag();
+                $tag->tag = $tag_name;
+                $tag->save();
+            }
+
+            $question->tags()->attach($tag);
+        }
+
+        return redirect('manage/questions/' . $question->id . '/submitted');
+    }
+
+    public function submittedQuestion($args){
+
+        if(!is_numeric($args)){
+            return redirect('manage/questions?error=question id not numeric');
+        }
+
+        $question = Question::find($args);
+
+        if($question === null){
+            return redirect('manage/questions?error=question not found');
+        }
+
+        return view('manage.question_submitted', ['question' => $question]);
+    }
+
+    public function homework($args = null){
+
+        if($args != null){
+
+            $args = explode(".", $args);
+
+            if($args[0] == "delete"){
+
+
+
+            }
+
+            if($args[0] == "edit"){
+
+                if(is_numeric($args[1])){
+
+                    $homework = Homework::find($args[1]);
+
+                    if($homework === null){
+                        return redirect('manage/homework?error=homework not found');
+                    }
+
+                    $questions = Question::get();
+
+                    return view('manage.edit_homework', ['homework' => $homework, 'questions' => $questions]);
+
+                } else {
+                    return redirect('manage/homework?error=homework id not numeric');
+                }
+
+            }
+
+        }
+
+        return view('manage.homework', ['homework' => Homework::get()]);
+
     }
 }

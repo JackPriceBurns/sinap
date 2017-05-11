@@ -15,6 +15,30 @@
                 @section('class.main')
                 <table class="table table-bordered">
                     <tbody>
+                        @if( \App\Classes\Auth::is("Teacher") || \App\Classes\Auth::is("Admin") )
+                        <tr>
+                            <td>
+                                <form method="POST" action="/class/{{ $classroom->id }}/post">
+                                    {{ csrf_field() }}
+                                    <div class="portlet">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <span class="caption-subject text-uppercase"> <input type="text" id="title" name="title" class="form-control" placeholder="Title"> </span>
+                                            </div>
+                                            <div class="actions">
+                                                <input type="text" id="link" name="link" class="form-control" placeholder="link (can be blank)">
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <textarea style="resize:vertical;" class="form-control" id="body" name="body" placeholder="This is the body of your post"></textarea>
+                                            <br />
+                                            <input type="submit" class="btn btn-default pull-right" value="post">
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        @endif
                         @foreach($classroom->news as $news)
                             <tr>
                                 <td>

@@ -17,12 +17,12 @@ class UserController extends Controller
         $sessions = Session::get();
         $badged_users = array();
         foreach($users as $user){
-            $badges = $badges->where('user_id', $user->id);
+            $badges_user = $badges->where('user_id', $user->id);
             $role = $roles->find($user->role_id);
             $session = $sessions->where('user_id', $user->id)->sortByDesc('expiration')->first();
 
             $last_seen = ($session == null) ? 'never' : (new Carbon($session->updated_at))->diffForHumans();
-            $new_user = ['user' => $user, 'badges' => $badges, 'role' => $role, 'last_seen'=>$last_seen];
+            $new_user = ['user' => $user, 'badges' => $badges_user, 'role' => $role, 'last_seen'=>$last_seen];
             array_push($badged_users, $new_user);
         }
 

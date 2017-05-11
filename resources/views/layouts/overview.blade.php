@@ -30,6 +30,7 @@
             <ul class="dropdown-menu">
                 <li><a href="/manage/badges">Manage Badges</a></li>
                 <li><a href="/manage/students">Manage Students</a></li>
+                <li><a href="/manage/classes">Manage Classes</a></li>
                 <li><a href="/manage/questions">Manage Questions</a></li>
                 <li><a href="/manage/homework">Manage Homework</a></li>
             </ul>
@@ -48,6 +49,7 @@
             <ul class="dropdown-menu">
                 <li><a href="/manage/badges">Manage Badges</a></li>
                 <li><a href="/manage/students">Manage Students</a></li>
+                <li><a href="/manage/classes">Manage Classes</a></li>
                 <li><a href="/manage/teachers">Manage Teachers</a></li>
                 <li><a href="/manage/sessions">Manage Sessions</a></li>
                 <li><a href="/manage/questions">Manage Questions</a></li>

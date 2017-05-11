@@ -14,7 +14,7 @@ class AddNewsTable extends Migration
             $table->integer('posted_by');
             $table->string('link')->nullable();
             $table->string('title');
-            $table->string('body');
+            $table->text('body');
             $table->enum('dashboard', ['true', 'false']);
             $table->enum('icon', ['calender','pencil', 'link']);
             $table->timestamps();

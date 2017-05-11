@@ -15,7 +15,7 @@ class PagesController extends Controller
     public function login(Request $request) {
 
         if($request->get('authenticated')) {
-            return redirect('/overview');
+            return redirect('/home');
         }
 
         return view("pages.login");

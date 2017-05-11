@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Classes\Auth;
 use App\Classroom;
+use App\News;
+use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
@@ -55,5 +57,32 @@ class ClassController extends Controller
         }) === 0) return true;
 
         return false;
+    }
+
+    public function post(Request $request, $args){
+
+        $classroom = Classroom::find($args);
+
+        if($classroom === null){
+            return redirect('class?error=class not found');
+        }
+
+        if($request->input('title') == null || $request->input('body') == null){
+            return redirect('class?error=no body or title set');
+        }
+
+        $news = new News();
+        $news->posted_by = Auth::get()->id;
+        $news->link = $request->input('link');
+        $news->title = $request->input('title');
+        $news->body = $request->input('body');
+        $news->icon = "pencil";
+        $news->dashboard = "false";
+        $news->save();
+
+        $classroom->news()->attach($news);
+
+        return redirect('/class/' . $classroom->id);
+
     }
 }

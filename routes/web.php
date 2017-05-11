@@ -42,11 +42,18 @@ Route::get('manage/teachers', 'ManageController@teachers')->middleware("admin");
 Route::get('manage/teachers/{args}', 'ManageController@teachers')->middleware("admin");
 Route::post('manage/teachers/{args}', 'ManageController@teachers')->middleware("admin");
 Route::get('manage/classes', 'ManageController@classes')->middleware("teacher");
+Route::get('manage/classes/{args}', 'ManageController@classes')->middleware("teacher");
+Route::post('manage/classes/{args}', 'ManageController@classes')->middleware("teacher");
 Route::get('manage/sessions', 'ManageController@sessions')->middleware("admin");
 Route::get('manage/sessions/{args}', 'ManageController@sessions')->middleware("admin");
 //Route::get('manage/widgets', 'ManageController@widgets');
 Route::get('manage/questions', 'ManageController@questions')->middleware("teacher");
+Route::post('manage/questions/submit', 'ManageController@submitQuestion')->middleware("teacher");
 Route::get('manage/questions/{args}', 'ManageController@questions')->middleware("teacher");
+Route::get('manage/questions/{args}/submitted', 'ManageController@submittedQuestion')->middleware("teacher");
+Route::get('manage/homework', 'ManageController@homework')->middleware("teacher");
+Route::get('manage/homework/{args}', 'ManageController@homework')->middleware("teacher");
+//Route::get('manage/homework', 'ManageController@homework')->middleware("teacher");
 
 # Class Controller
 
@@ -54,6 +61,7 @@ Route::get('class', 'ClassController@index');
 Route::get('class/{args}', 'ClassController@classroom');
 Route::get('class/{args}/homework', 'ClassController@homework');
 Route::get('class/{args}/stats', 'ClassController@stats');
+Route::post('class/{args}/post', 'ClassController@post')->middleware("teacher");
 
 # Homework Controller
 

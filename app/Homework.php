@@ -13,6 +13,10 @@ class Homework extends Model
         return $this->hasMany('App\Submits');
     }
 
+    public function setter(){
+        return $this->belongsTo('App\User', 'set_by');
+    }
+
     public function questions(){
         return $this->belongsToMany('App\Question', 'questions_homework', 'homework_id', 'question_id');
     }

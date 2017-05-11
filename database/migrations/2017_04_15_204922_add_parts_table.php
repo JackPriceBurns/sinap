@@ -13,9 +13,9 @@ class AddPartsTable extends Migration
             $table->increments('id');
             $table->enum('type', ['mp', 'a']);
             $table->integer('question_id');
-            $table->string('question');
-            $table->string('tip');
-            $table->string('answer');
+            $table->text('question');
+            $table->text('tip');
+            $table->text('answer');
             $table->boolean('requires_marking')->default(false);
             $table->timestamps();
         });

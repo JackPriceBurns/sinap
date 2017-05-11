@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-dropmenu.min.css">
+    <link rel="stylesheet" href="/css/awesomplete.base.css">
     <link rel="stylesheet" href="/css/main.css">
 
     @yield('custom_css')
@@ -46,7 +47,7 @@
                 <ul class="nav navbar-nav">
                     @yield('links')
                 </ul>
-                <ul class="nav navbar-nav navbar-right">,
+                <ul class="nav navbar-nav navbar-right">
                     @if ( Request::get('authenticated') )
 
                         <li class="dropdown">
@@ -84,6 +85,7 @@
     <script src="/js/vendor/jquery-ui.min.js"></script>
     <script src="/js/vendor/jquery-comments.js"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
+    <script src="/js/vendor/awesomplete.min.js"></script>
     <script src="/js/vendor/docs.js"></script>
     <script src="/js/main.js"></script>
 

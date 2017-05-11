@@ -11,7 +11,7 @@ class AddQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('context');
+            $table->text('context');
             $table->string('graph')->nullable();
             $table->integer('difficulty');
             $table->timestamps();
