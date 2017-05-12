@@ -27,4 +27,8 @@ class Classroom extends Model
     public function homework(){
         return $this->belongsToMany('App\Homework', 'homework_classes', 'class_id', 'homework_id');
     }
+
+    public function submits(){
+        return $this->hasMany('App\Submit');
+    }
 }

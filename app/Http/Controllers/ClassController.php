@@ -41,7 +41,19 @@ class ClassController extends Controller
             return redirect('class?error=you\'re not allowed to view this');
         }
 
-        return view('class.' . $blade, ['classroom' => $classroom]);
+        $scores = [];
+
+        foreach($classroom->students as $student){
+            if(count($student->submitted) > 0){
+                array_push($scores, $student->submitted->sortByDesc('score')->first());
+            }
+
+        }
+
+        //echo(json_encode($scores));
+        //exit();
+
+        return view('class.' . $blade, ['classroom' => $classroom, 'scores'=>$scores]);
     }
 
     private function authorized(Classroom $classroom) : bool {
@@ -52,9 +64,9 @@ class ClassController extends Controller
             return true;
         }
 
-        if($classroom->students->search(function($item, $key) use ($user) {
-            return $item->id === $user->id;
-        }) === 0) return true;
+        foreach($classroom->students as $student){
+            if($student->id == $user->id) return true;
+        }
 
         return false;
     }

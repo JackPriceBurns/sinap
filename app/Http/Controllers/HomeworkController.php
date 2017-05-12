@@ -84,7 +84,7 @@ class HomeworkController extends Controller
             }
         }
 
-        if($total = $score){
+        if($total == $score){
             $marking_required = false;
         }
 
