@@ -42,23 +42,7 @@
                         <tbody>
                         <tr>
                             <td>Teachers</td>
-                            <td>{{ count($teachers) }}</td>
-                        </tr>
-                        <tr>
-                            <td>Most Missing Homework</td>
-                            <td>Graham Colman</td>
-                        </tr>
-                        <tr>
-                            <td>Most Completed Homework</td>
-                            <td>Adam Jarret</td>
-                        </tr>
-                        <tr>
-                            <td>Lowest Missing Homework per Student</td>
-                            <td>Adam Jarret</td>
-                        </tr>
-                        <tr>
-                            <td>Highest Missing Homework per Student</td>
-                            <td>Rob Jackets</td>
+                            <td>{{ $teachers->count() }}</td>
                         </tr>
                         </tbody>
                     </table>

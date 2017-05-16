@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Badge;
 use App\Classes\Auth;
 use App\Classes\Hash;
 use App\Classroom;
 use App\Homework;
 use App\Part;
 use App\Question;
+use App\Role;
 use App\Session;
 use App\Setting;
 use App\Subject;
 use App\Tag;
 use App\User;
-use App\Role;
-use App\Badge;
 use Illuminate\Http\Request;
 
 class ManageController extends Controller
@@ -62,7 +62,10 @@ class ManageController extends Controller
             }
         }
 
-        return view('manage.badges', ['users' => User::orderBy('name', 'asc')->get(), 'badges'=>Badge::get()]);
+        $users = User::orderBy('name', 'asc')->get();
+        $badges = Badge::get();
+
+        return view('manage.badges', compact('users', 'badges'));
     }
 
     public function sessions($args = null){
@@ -98,14 +101,15 @@ class ManageController extends Controller
             }
         }
 
-        $packaged = [];
+        $sessions = collect([]);
 
         $users = User::orderBy('name', 'asc')->get();
+        $sessions_db = Session::get();
         foreach($users as $user){
-            array_push($packaged, ['user' => $user, 'sessions' => Session::where('user_id', $user->id)->get()]);
+            $sessions->push(['user' => $user, 'sessions' => $sessions_db->where('user_id', $user->id)]);
         }
 
-        return view('manage.sessions', ['sessions' => $packaged]);
+        return view('manage.sessions', compact('sessions'));
     }
 
     public function teachers(Request $request, $args = null){
@@ -160,10 +164,10 @@ class ManageController extends Controller
             }
         }
 
-        $teachers = ['teachers' => User::where('role_id', Role::where('name', 'Teacher')->first()->id)->orderBy('name', 'asc')->get()];
 
-        return view('manage.teachers', $teachers);
+        $teachers = Role::where('name', 'Teacher')->first()->users->sortBy('name');
 
+        return view('manage.teachers', compact('teachers'));
     }
 
     public function students(Request $request, $args = null){
@@ -276,10 +280,6 @@ class ManageController extends Controller
                     $names = explode(',', $request->input('names'));
                     $emails = explode(',', $request->input('emails'));
                     $years = explode(',', $request->input('years'));
-                    //print_r($names);
-                    //print_r($emails);
-                    //print_r($years);
-                    //exit();
                     if(count($names) == count($emails) && count($emails) == count($years)){
                         $x = 0;
                         $notAdded = [];
@@ -334,15 +334,15 @@ class ManageController extends Controller
             }
         }
 
-        $students = ['students' => User::where('role_id', Role::where('name', 'Student')->first()->id)->orderBy('name', 'asc')->get()];
+        $students = Role::where('name', 'Student')->first()->users->sortBy('name');
 
-        return view('manage.students', $students);
+        return view('manage.students', compact('students'));
 
     }
 
-    public function questions($arguments = null){
-        $questions = Question::get();
-        return view('manage.questions', ['questions' => $questions]);
+    public function questions()
+    {
+        return view('manage.questions', ['questions' => Question::get()]);
     }
 
     public function classes(Request $request, $args = null){
@@ -464,7 +464,7 @@ class ManageController extends Controller
             return redirect('manage/questions?error=question not found');
         }
 
-        return view('manage.question_submitted', ['question' => $question]);
+        return view('manage.question_submitted', compact('question'));
     }
 
     public function homework($args = null){
@@ -475,7 +475,18 @@ class ManageController extends Controller
 
             if($args[0] == "delete"){
 
+                if (is_numeric($args[1])) {
 
+                    $homework = Homework::find($args[1]);
+
+                    if ($homework === null) {
+                        return redirect('manage/homework?error=homework not found');
+                    }
+
+                    $homework->delete();
+                } else {
+                    return redirect('manage/homework?error=homework id not numeric');
+                }
 
             }
 

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Auth;
 use Cookie;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function home($args = null) {
+    public function home()
+    {
         return view("pages.home");
     }
 

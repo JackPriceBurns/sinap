@@ -26,10 +26,10 @@
                         <td>{{ $classroom->name }}</td>
                         <td>
 
-                            @if(count($classroom->students) == 0)
+                            @if($classroom->students->count() == 0)
                                 This class has no students.
                             @else
-                                {{ count($classroom->students) }}
+                                {{ $classroom->students->count() }}
                             @endif
 
                         </td>
@@ -48,7 +48,7 @@
                         <tbody>
                         <tr>
                             <td>Classrooms</td>
-                            <td>{{ count($classrooms) }}</td>
+                            <td>{{ $classrooms->count() }}</td>
                         </tr>
                         </tbody>
                     </table>

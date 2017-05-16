@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <table class="table table-bordered">
                     <tbody>
-                    @if(count(\App\News::where('dashboard', 'true')->get()) == 0)
+                    @if(\App\News::where('dashboard', 'true')->get()->count() == 0)
                         <tr>
                             <td>
                                 <div class="portlet">
@@ -76,7 +76,7 @@
                     <div class="portlet-body">
                         <table class="table table-bordered">
                             <tbody>
-                            @foreach($activeUsers as $user)
+                            @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                 </tr>

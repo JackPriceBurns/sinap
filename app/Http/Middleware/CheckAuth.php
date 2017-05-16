@@ -16,14 +16,11 @@ class CheckAuth
             '/',
         ];
 
-    public function handle($request, Closure $next) {
-
+    public function handle($request, Closure $next)
+    {
         $check = Auth::check();
-
         if(!$check['success']){
-
             $loginError = (isset($check['error'])) ? $check['error'] : 'please login';
-
             if($this->isExcept($request)){
                 $request->merge(['authenticated' => false]);
             } else {
@@ -32,18 +29,21 @@ class CheckAuth
                     return redirect($redirect)->withCookie($check['cookie']);
                 } else return redirect($redirect);
             }
-
         } else {
-
-            $request->merge(['authenticated' => true, 'auth_cookie'=>$check['cookie'], 'role_name'=>$check['user']->role->name, 'user'=>$check['user']]);
-
+            $request->merge(
+                [
+                    'authenticated' => true,
+                    'auth_cookie' => $check['cookie'],
+                    'role_name' => $check['user']->role->name,
+                    'user' => $check['user'],
+                ]
+            );
         }
-
         return $next($request);
     }
 
-    private function isExcept(Request $request){
-
+    private function isExcept(Request $request)
+    {
         foreach ($this->except as $except) {
             if ($except !== '/') {
                 $except = trim($except, '/');
@@ -53,8 +53,6 @@ class CheckAuth
                 return true;
             }
         }
-
         return false;
-
     }
 }

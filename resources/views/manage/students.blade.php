@@ -46,7 +46,7 @@
                         <tbody>
                             <tr>
                                 <td>Students</td>
-                                <td>{{ count($students) }}</td>
+                                <td>{{ $students->count() }}</td>
                             </tr>
                             <tr>
                                 <td>Missing Homework</td>

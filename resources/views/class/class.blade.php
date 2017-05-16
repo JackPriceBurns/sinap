@@ -78,7 +78,7 @@
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading">{{ $classroom->teacher->name }}</h4>
-                        <h5>Last Seen: {{ $classroom->teacher->lastSeen() }}</h5>
+                        <h5>Last Seen: {{ \App\Classes\Auth::lastSeen($classroom->teacher->id) }}</h5>
                         <hr style="margin:8px auto">
 
                         <span class="label label-danger">{{ $classroom->teacher->role->name }}</span>

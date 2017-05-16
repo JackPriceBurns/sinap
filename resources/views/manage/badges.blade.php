@@ -24,14 +24,11 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>
-
-                            @if(count($badges->where('user_id', $user->id)) == 0)
+                            @forelse($badges->where('user_id', $user->id) as $badge)
+                                <span class="label label-{{ $badge->colour }}">{{ $badge->name }}</span>
+                            @empty
                                 This user has no badges.
-                            @endif
-
-                            @foreach($badges->where('user_id', $user->id) as $badge)
-                                    <span class="label label-{{ $badge->colour }}">{{ $badge->name }}</span>
-                            @endforeach
+                            @endforelse
                         </td>
                         <td><a href="/manage/badges?view={{ $user->id }}">Edit</a></td>
                     </tr>
@@ -48,19 +45,19 @@
                         <tbody>
                         <tr>
                             <td>Badges</td>
-                            <td>{{ count($badges) }}</td>
+                            <td>{{ $badges->count() }}</td>
                         </tr>
                         <tr>
                             <td>Red Badges</td>
-                            <td>{{ count($badges->where('colour', 'danger')) }}</td>
+                            <td>{{ $badges->where('colour', 'danger')->count() }}</td>
                         </tr>
                         <tr>
                             <td>Green Badges</td>
-                            <td>{{ count($badges->where('colour', 'success')) }}</td>
+                            <td>{{ $badges->where('colour', 'success')->count() }}</td>
                         </tr>
                         <tr>
                             <td>Yellow Badges</td>
-                            <td>{{ count($badges->where('colour', 'warning')) }}</td>
+                            <td>{{ $badges->where('colour', 'warning')->count() }}</td>
                         </tr>
 
                         </tbody>

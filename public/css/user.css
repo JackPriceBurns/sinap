@@ -34,7 +34,7 @@
 }
 
 .btn-compose-email {
-    padding: 10px 0px;
+    padding: 10px 0;
     margin-bottom: 20px;
 }
 
@@ -55,9 +55,9 @@
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
     border-bottom: 1px solid #DDD;
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 
 .panel .panel-heading .panel-title {
@@ -67,8 +67,8 @@
 
 form .form-group {
     position: relative;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 .inner-all {
@@ -121,12 +121,12 @@ form .form-group {
     background-color: #EEEEEE;
 }
 .table-email .media {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     position: relative;
 }
 .table-email .media h4 {
-    margin: 0px;
+    margin: 0;
     font-size: 14px;
     line-height: normal;
 }
@@ -143,19 +143,19 @@ form .form-group {
     right: 10px;
 }
 .table-email .media-meta {
-    top: 0px;
+    top: 0;
 }
 .table-email .media-attach {
-    bottom: 0px;
+    bottom: 0;
 }
 .table-email .media-attach i {
     margin-right: 10px;
 }
 .table-email .media-attach i:last-child {
-    margin-right: 0px;
+    margin-right: 0;
 }
 .table-email .email-summary {
-    margin: 0px 110px 0px 0px;
+    margin: 0 110px 0 0;
 }
 .table-email .email-summary strong {
     color: #333;
@@ -167,7 +167,7 @@ form .form-group {
     padding: 1px 5px 2px;
 }
 .table-email .ckbox {
-    line-height: 0px;
+    line-height: 0;
     margin-left: 8px;
 }
 .table-email .star {
@@ -204,17 +204,17 @@ form .form-group {
     padding: 10px;
     width: 100%;
     display: inline-block;
-    margin: 20px 0px;
+    margin: 20px 0;
     border-top: 1px solid #EFF2F7;
 }
 .attachment-mail p {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .attachment-mail a {
     color: #32323A;
 }
 .attachment-mail ul {
-    padding: 0px;
+    padding: 0;
 }
 .attachment-mail ul li {
     float: left;
@@ -234,7 +234,7 @@ form .form-group {
 
 @media (max-width: 640px) {
     .compose-mail-wrapper .compose-mail {
-        padding: 0px;
+        padding: 0;
     }
 }
 @media (max-width: 360px) {
@@ -263,7 +263,7 @@ form .form-group {
         margin-right: auto;
     }
     .mail-wrapper .attachment-mail ul {
-        padding: 0px;
+        padding: 0;
     }
     .mail-wrapper .attachment-mail ul li {
         width: 100%;
@@ -296,20 +296,20 @@ form .form-group {
 @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 /*Comment List styles*/
 .comment-list .row {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .comment-list .panel .panel-heading {
     padding: 4px 15px;
     position: absolute;
     border:none;
     /*Panel-heading border radius*/
-    border-top-right-radius:0px;
+    border-top-right-radius: 0;
     top: 1px;
 }
 .comment-list .panel .panel-heading.right {
-    border-right-width: 0px;
+    border-right-width: 0;
     /*Panel-heading border radius*/
-    border-top-left-radius:0px;
+    border-top-left-radius: 0;
     right: 16px;
 }
 .comment-list .panel .panel-heading .panel-body {
@@ -335,7 +335,7 @@ form .form-group {
     /*****Left Arrow*****/
     /*Outline effect style*/
     .comment-list .panel.arrow.left:before {
-        left: 0px;
+        left: 0;
         top: 30px;
         /*Use boarder color of panel*/
         border-right-color: inherit;
@@ -436,7 +436,7 @@ form .form-group {
     padding: 20px;
 }
 .bs-callout:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .bs-callout h4 {
     margin-bottom: 10px;
@@ -502,7 +502,7 @@ form .form-group {
     position: relative;
     float: left;
     min-height: 15px;
-    border-width: 0px;
+    border-width: 0;
     border-style: solid;
     border-color: rgb(160, 160, 160);
 }

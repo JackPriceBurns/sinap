@@ -27,7 +27,7 @@
                     <tr>
                         <td>{{ $session['user']->name }}</td>
                         <td>{{ $session['user']->email }}</td>
-                        <td>{{ count($session['sessions']) }}</td>
+                        <td>{{ $session['sessions']->count() }}</td>
                         <td><a href="/manage/sessions/delete.all.{{ $session['user']->id }}">Delete Sessions</a> - <a href="/manage/sessions?user_id={{ $session['user']->id }}">View Sessions</a></td>
                     </tr>
                 @endforeach
@@ -43,7 +43,7 @@
                         <tbody>
                             <tr>
                                 <td>Sessions</td>
-                                <td>{{ count(\App\Session::get()) }}</td>
+                                <td>{{ \App\Session::get()->count() }}</td>
                             </tr>
                         </tbody>
                     </table>

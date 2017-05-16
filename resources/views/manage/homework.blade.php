@@ -42,7 +42,7 @@
                         <tbody>
                         <tr>
                             <td>Homework</td>
-                            <td>{{ count($homework) }}</td>
+                            <td>{{ $homework->count() }}</td>
                         </tr>
                         </tbody>
                     </table>

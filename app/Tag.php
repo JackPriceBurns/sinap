@@ -9,6 +9,6 @@ class Tag extends Model
     public $timestamps = false;
 
     public function questions(){
-        return $this->belongsToMany('App\Question', 'questions_tags', 'tag_id', 'question_id');
+        return $this->belongsToMany(Question::class, 'questions_tags', 'tag_id', 'question_id');
     }
 }

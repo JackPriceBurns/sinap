@@ -9,10 +9,10 @@ class Submit extends Model
     public $timestamps = false;
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function homework(){
-        return $this->belongsTo('App\Homework');
+        return $this->belongsTo(Homework::class);
     }
 }

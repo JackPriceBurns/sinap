@@ -18,9 +18,6 @@ class HomeworkController extends Controller
 
         foreach($classes as $class){
             foreach($class->homework as $homework){
-
-                
-
                 if((new Carbon($homework->due))->greaterThan(new Carbon())){
                     array_push($due_homework, $homework);
                 } else {
@@ -29,7 +26,7 @@ class HomeworkController extends Controller
             }
         }
 
-        return view('homework.index', ['due_homework' => $due_homework, 'submitted_homework' => $submitted_homework]);
+        return view('homework.index', compact('due_homework', 'submitted_homework'));
     }
 
     public function homework($arguments = null){
@@ -44,7 +41,7 @@ class HomeworkController extends Controller
             return redirect('/?error=homework not found');
         }
 
-        return view('homework.homework', ['homework' => $homework]);
+        return view('homework.homework', compact('homework'));
     }
 
     public function submit($arguments){
@@ -121,6 +118,6 @@ class HomeworkController extends Controller
             return redirect('/?error=homework not found');
         }
 
-        return view('homework.submitted', ['homework' => $homework]);
+        return view('homework.submitted', compact('homework'));
     }
 }

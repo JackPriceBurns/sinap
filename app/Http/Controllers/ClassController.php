@@ -10,19 +10,15 @@ use Illuminate\Http\Request;
 class ClassController extends Controller
 {
     public function index(){
-        return view('class.index');
+
+        $classes = Auth::get()->classes;
+        $teaching = Auth::get()->teaching;
+
+        return view('class.index', compact('classes', 'teaching'));
     }
 
     public function classroom($arguments = null) {
         return $this->load('class', $arguments);
-    }
-
-    public function homework($arguments = null) {
-        return $this->load('homework', $arguments);
-    }
-
-    public function stats($arguments = null) {
-        return $this->load('stats', $arguments);
     }
 
     private function load($blade, $arguments){
@@ -50,10 +46,7 @@ class ClassController extends Controller
 
         }
 
-        //echo(json_encode($scores));
-        //exit();
-
-        return view('class.' . $blade, ['classroom' => $classroom, 'scores'=>$scores]);
+        return view('class.'.$blade, compact('classroom', 'scores'));
     }
 
     private function authorized(Classroom $classroom) : bool {
@@ -69,6 +62,16 @@ class ClassController extends Controller
         }
 
         return false;
+    }
+
+    public function homework($arguments = null)
+    {
+        return $this->load('homework', $arguments);
+    }
+
+    public function stats($arguments = null)
+    {
+        return $this->load('stats', $arguments);
     }
 
     public function post(Request $request, $args){

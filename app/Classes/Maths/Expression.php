@@ -21,12 +21,6 @@ class Expression
         return $this;
     }
 
-    public function minus(Term $term){
-        array_push($this->negativeTerms, $term);
-        $this->clean();
-        return $this;
-    }
-
     private function clean()
     {
         $xPowers = [];
@@ -66,13 +60,21 @@ class Expression
             foreach($terms as $newTerm) $yTerm->add($newTerm);
 
             if($yTerm->getCoefficient() != 0){
-                if($yTerm->getCoefficient() < 0){ 
+                if ($yTerm->getCoefficient() < 0) {
                     array_push($this->negativeTerms, $yTerm);
                 } else {
                     array_push($this->positiveTerms, $yTerm);
                 }
             }
         }
+    }
+
+    public function minus(Term $term)
+    {
+        array_push($this->negativeTerms, $term);
+        $this->clean();
+
+        return $this;
     }
 
     public function getReadable(){

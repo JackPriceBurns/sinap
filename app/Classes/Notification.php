@@ -12,7 +12,8 @@ namespace app\Classes;
 class Notification
 {
 
-    public static function get($user_id){
+    public static function get()
+    {
         return [['message' => 'This is a test notification']];
     }
 
