@@ -13,7 +13,6 @@ class CheckAuth
 
     private $except = [
             'login',
-            '/',
         ];
 
     public function handle($request, Closure $next)

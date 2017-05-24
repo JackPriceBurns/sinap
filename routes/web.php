@@ -13,8 +13,8 @@
 
 # Pages
 
-Route::get('/', 'PagesController@home');
-Route::get('login', 'PagesController@login');
+Route::get('/', 'OverviewController@overview');
+Route::get('login', 'LoginController@index');
 
 # Login Controller
 
@@ -25,10 +25,6 @@ Route::get('logout', 'LoginController@logout');
 
 Route::get('user', 'UserController@index');
 Route::get('user/{id}', 'UserController@user');
-
-# Overview Controller
-
-Route::get('home', 'OverviewController@overview');
 
 # Manage Controller
 

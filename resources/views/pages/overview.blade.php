@@ -1,94 +1,73 @@
 @extends('layouts.overview')
 
-@section('custom_css')
-    <link rel="stylesheet" href="/css/class.css">
+@section('page_title')
+    Home
 @endsection
 
 @section('content')
 
-    <div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-8 col-xs-12">
 
-        <h2>Home</h2>
-
-        <div class="row">
-            <div class="col-md-8">
-                <table class="table table-bordered">
-                    <tbody>
-                    @if(\App\News::where('dashboard', 'true')->get()->count() == 0)
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                            <span class="caption-subject text-uppercase"> Nothing here</span>
-                                            <span class="caption-helper"></span>
-                                        </div>
-                                        <div class="action">
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>No one has made a post yet :(</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-                    @foreach(\App\News::where('dashboard', 'true')->get() as $news)
-                        <tr>
-                            <td>
-                                <div class="portlet">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="glyphicon glyphicon-{{ $news->icon }}"></i>
-                                            <span class="caption-subject text-uppercase"> {{ $news->title }}</span>
-                                            <span class="caption-helper">{{ (new \Carbon\Carbon($news->created_at))->diffForHumans() }}</span>
-                                        </div>
-                                        <div class="actions">
-                                            @if($news->link !== null)
-                                                <a href="{{ $news->link }}" class="btn">
-                                                    <i class="glyphicon glyphicon-pencil"></i>
-                                                    View
-                                                </a>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="portlet-body">
-                                        <p>{{ $news->body }}</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-md-4">
-
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption caption-green">
-                            <i class="glyphicon glyphicon-link"></i>
-                            <span class="caption-subject text-uppercase"> Online Users</span>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>News</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="dashboard-widget-content">
+                                <ul class="list-unstyled timeline widget">
+                                    @forelse(\App\News::where('dashboard', 'true')->get() as $news)
+                                        <li>
+                                            <div class="block">
+                                                <div class="block_content">
+                                                    <h2 class="title">
+                                                        <a>{{ $news->title }}</a>
+                                                    </h2>
+                                                    <div class="byline">
+                                                        <span>{{ (new \Carbon\Carbon($news->created_at))->diffForHumans() }}</span> by <a>{{ $news->poster->name }}</a>
+                                                    </div>
+                                                    <p class="excerpt">{{ $news->body }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <li>
+                                            <div class="block">
+                                                <div class="block_content">
+                                                    <h2 class="title">
+                                                        <a>There are no posts</a>
+                                                    </h2>
+                                                    <br />
+                                                    <p class="excerpt">No one has made a news post yet.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforelse
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <table class="table table-bordered">
-                            <tbody>
-                            @foreach($users as $user)
-                                <tr>
-                                    <td>{{ $user->name }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-
             </div>
         </div>
-
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Online Users</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <ul class="list-unstyled msg_list">
+                        @foreach($users as $user)
+                            <li><a href="/user/{{ $user->id }}"><span class="image"><img src="http://placehold.it/300x300" alt="img"></span><h5><strong>{{ $user->name }}</strong></h5></a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

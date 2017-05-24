@@ -1,95 +1,149 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>
-        @section('title')
-            SINAP
-        @show
-    </title>
+    <title>@yield('title')</title>
 
-    <meta name="description" content="">
+    <link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/font-awesome/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/nprogress/nprogress.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap-dropmenu.min.css">
-    <link rel="stylesheet" href="/css/awesomplete.base.css">
-    <link rel="stylesheet" href="/css/main.css">
-
-    @yield('custom_css')
-
-    <script src="/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <link href="/css/custom.min.css" rel="stylesheet">
 </head>
-<body @yield('body')>
 
-    @section('navbar')
+<body class="nav-md footer_fixed">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/" class="site_title"><i class="fa fa-pencil"></i> <span>SINAP</span></a>
+                </div>
 
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">SINAP</a>
-            </div>
+                <div class="clearfix"></div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    @yield('links')
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if ( Request::get('authenticated') )
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="http://placehold.it/300x300" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>{{ \App\Classes\Auth::get()->name }}</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ \App\Classes\Auth::get()->name }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/overview">Overview</a></li>
-                                <li><a href="/user/{{ \App\Classes\Auth::get()->id }}">Profile</a></li>
-                                <li><a href="/notifications">Notifications</a></li>
-                                <li><a href="/settings">Settings</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    @else
-                        <li><a href="/login">Login</a></li>
-                    @endif
-                </ul>
+                <br />
+
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li><a href="/"><i class="fa fa-home"></i> Home </a>
+                            <li><a href="/user"><i class="fa fa-group"></i> Users </a>
+                            <li><a><i class="fa fa-calculator"></i> Work <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/homework">Homework</a></li>
+                                    <li><a href="/class">Classes</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Manage <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/manage/badges">Badges</a></li>
+                                    <li><a href="/manage/classes">Classrooms</a></li>
+                                    <li><a href="/manage/students">Students</a></li>
+                                    <li><a href="/manage/teachers">Teachers</a></li>
+                                    <li><a href="/manage/questions">Questions</a></li>
+                                    <li><a href="/manage/homeworks">Homeworks</a></li>
+                                    <li><a href="/manage/sessions">Sessions</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    @show
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
 
-    <div class="header-spacer"></div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="http://placehold.it/300x300" alt="{{ \App\Classes\Auth::get()->name }}">{{ \App\Classes\Auth::get()->name }}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="/user/{{ \App\Classes\Auth::get()->id }}"> Profile</a></li>
+                                <li><a href="#"><span>Settings</span></a></li>
+                                <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
 
-    @yield('header')
+                        <li role="presentation" class="dropdown">
+                            <a href="#" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">1</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img src="http://placehold.it/300x300" alt="Profile Image" /></span>
+                                        <span>
+                                          <span>John Smith</span>
+                                          <span class="time">3 mins ago</span>
+                                        </span>
+                                        <span class="message">Film festivals used to be do-or-die moments for movie makers. They were where...</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
 
-    @yield('content')
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>@yield('page_title')</h3>
+                    </div>
+                </div>
 
-    @yield('footer')
+                <div class="clearfix"></div>
 
-    @yield('modal')
+                @yield('content')
+            </div>
+        </div>
 
-    <script src="/js/vendor/jquery-3.1.1.min.js"></script>
-    <script src="/js/vendor/jquery-ui.min.js"></script>
-    <script src="/js/vendor/jquery-comments.js"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
-    <script src="/js/vendor/awesomplete.min.js"></script>
-    <script src="/js/vendor/docs.js"></script>
-    <script src="/js/main.js"></script>
+        <footer>
+            <div class="pull-right">Designed and Developed by Jack Price-Burns</div>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
 
-    @yield('javascript')
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/fastclick/fastclick.js"></script>
+<script src="/js/nprogress/nprogress.js"></script>
 
+<script src="/js/custom.min.js"></script>
 </body>
 </html>
